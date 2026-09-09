@@ -14,10 +14,12 @@ interface UsePollingOptions {
  * (set an interval, clear it on unmount) had three operational pitfalls
  * that we kept rediscovering — this helper bakes the fixes in once:
  *
- *  1. **Visibility awareness.** When the operator backgrounds the browser
- *     tab, `document.hidden` flips to true. We pause the timer. When the
- *     tab comes back, we fire a fresh poll immediately and resume. Without
- *     this, a Console left open in a side tab polls the cluster forever.
+ *  1. **Visibility awareness.** We always run one initial fetch on mount so a
+ *     view that gates its `loaded` flag on the first poll resolves even in a
+ *     tab that starts hidden. Beyond that, the *recurring* timer is paused
+ *     while `document.hidden` is true and resumed (with a fresh poll) when the
+ *     tab comes back — so a Console left open in a side tab doesn't poll the
+ *     cluster forever, but also never sits on an infinite spinner.
  *
  *  2. **Caller-controlled pause.** Pass `enabled: false` (e.g. after
  *     detecting Prometheus is unavailable, or for a route whose backend
@@ -60,14 +62,20 @@ export function usePollingEffect(
 
   React.useEffect(() => {
     if (!enabled) return;
-    if (pauseWhenHidden && typeof document !== 'undefined' && document.hidden) {
-      // Don't start a timer in the background. The visibilitychange listener
-      // below will kick us off when the tab is brought back.
-      return;
-    }
 
+    // Always run ONE initial fetch on mount, even when the tab starts hidden
+    // (background / secondary / restored tab). Consumers flip their `loaded`
+    // flag inside `fn`, so skipping this left `loaded`-gated views (Cost,
+    // traffic summaries, policy Runtime Metrics) spinning forever in any
+    // non-foreground tab. Only the *recurring* interval is paused while hidden;
+    // the visibilitychange listener below starts it when the tab is brought
+    // forward.
     runOnce();
-    intervalRef.current = setInterval(runOnce, intervalMs);
+
+    const hidden = pauseWhenHidden && typeof document !== 'undefined' && document.hidden;
+    if (!hidden) {
+      intervalRef.current = setInterval(runOnce, intervalMs);
+    }
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
