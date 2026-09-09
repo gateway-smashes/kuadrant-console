@@ -27,8 +27,8 @@ import { useTlsProber } from './useTlsProber';
  * States:
  *   1. Prober not configured    → static "requires companion" rows +
  *                                 disabled button, same as before.
- *   2. Configured, no probe yet → shows "expected" rows derived from
- *                                 the pipeline outcome; button enabled.
+ *   2. Configured, no probe yet → measurement rows read "Not probed"
+ *                                 until the check runs; button enabled.
  *   3. Probe in flight          → spinner in the header.
  *   4. Probe complete           → live rows, plus a `trusted` / cert
  *                                 validity chip.
@@ -38,7 +38,6 @@ import { useTlsProber } from './useTlsProber';
 
 interface Props {
   hostname: string;
-  handshakeExpectedOk: boolean;
 }
 
 const StatusChip: React.FC<{
@@ -54,7 +53,7 @@ const StatusChip: React.FC<{
   );
 };
 
-const TLSHTTPSValidationCard: React.FC<Props> = ({ hostname, handshakeExpectedOk }) => {
+const TLSHTTPSValidationCard: React.FC<Props> = ({ hostname }) => {
   const { configured, loading, error, result, runProbe } = useTlsProber(hostname);
 
   const endpoint = hostname ? `https://${hostname}` : '—';
@@ -88,16 +87,17 @@ const TLSHTTPSValidationCard: React.FC<Props> = ({ hostname, handshakeExpectedOk
     if (!configured) {
       return (
         <Tooltip content="Live probe requires the dns-prober companion service (bundles the TLS endpoint too).">
-          <Label color="grey" isCompact>expected</Label>
+          <Label color="grey" isCompact>not run</Label>
         </Tooltip>
       );
     }
     return null;
   }, [configured, loading, result]);
 
-  // Row values. If we have a live result, use it. Otherwise fall back
-  // to pipeline-derived predictions so the card doesn't read as empty.
-  const tlsVersion = result?.tlsVersion || (handshakeExpectedOk ? 'expected TLS 1.2/1.3' : '—');
+  // Row values. If we have a live result, use it; otherwise show "—"
+  // (nothing measured yet). The header "not run" chip and the Run button
+  // convey the un-probed state — we no longer fake predicted values here.
+  const tlsVersion = result?.tlsVersion || '—';
   const cipher = result?.cipherSuite || '—';
   const httpStatus = result?.httpStatus
     ? `${result.httpStatus} ${result.httpStatusReason || ''}`.trim()
@@ -141,7 +141,7 @@ const TLSHTTPSValidationCard: React.FC<Props> = ({ hostname, handshakeExpectedOk
                 label={result.handshake === 'ok' ? 'Succeeded' : 'Failed'}
               />
             ) : (
-              handshakeExpectedOk ? 'expected OK' : 'expected failure'
+              'Not probed'
             )}
           </dd>
           <dt>TLS Version</dt>
@@ -168,10 +168,8 @@ const TLSHTTPSValidationCard: React.FC<Props> = ({ hostname, handshakeExpectedOk
                   </>
                 )}
               </span>
-            ) : handshakeExpectedOk ? (
-              'expected valid'
             ) : (
-              'chain check will fail'
+              'Not probed'
             )}
           </dd>
           <dt>Chain trusted</dt>

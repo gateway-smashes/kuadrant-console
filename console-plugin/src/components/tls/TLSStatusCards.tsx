@@ -143,7 +143,7 @@ const TLSStatusCards: React.FC<Props> = ({ overall }) => {
           title="HTTPS Check"
           icon={<LockIcon style={{ color: STATUS_META[httpsCheck.status].color, fontSize: 22 }} />}
           primary={httpsCheck.label}
-          secondary={httpsCheck.subLabel || 'Live probe not yet implemented'}
+          secondary={httpsCheck.subLabel || 'Live probe not run'}
           primaryColor={STATUS_META[httpsCheck.status].color}
         />
       </GridItem>

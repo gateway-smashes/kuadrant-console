@@ -743,7 +743,7 @@ export function useTlsTroubleshooting(selectedHostname: string | null): TlsFlow 
         : 'Some prerequisites are not yet met.',
       details: [
         { label: 'External check', value: 'not run' as string, muted: true },
-        { label: 'TLS handshake', value: httpsReady ? 'expected OK' : 'expected failure', muted: !expired },
+        { label: 'TLS handshake', value: 'not run', muted: true },
       ],
     });
 
