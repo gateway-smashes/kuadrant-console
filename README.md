@@ -68,9 +68,13 @@ one Gateway, and `oc`. User-workload monitoring is optional — metric panels
 degrade gracefully without it.
 
 ```bash
-# 1. Build & push the plugin image (nginx serving the webpack bundle)
+# 1. Build & push the plugin image (nginx serving the webpack bundle).
+#    Skip this and use the published image if you don't need a custom build:
+#      quay.io/gateway-smashes/kuadrant-console:1.5.1
+#    --platform matters: OpenShift nodes are x86-64, and podman on an Apple
+#    Silicon Mac defaults to arm64, which the cluster cannot run.
 cd console-plugin
-podman build -t quay.io/<org>/kuadrant-console:latest .
+podman build --platform linux/amd64 -t quay.io/<org>/kuadrant-console:latest .
 podman push  quay.io/<org>/kuadrant-console:latest
 
 # 2. Deploy the plugin server + register + enable it
