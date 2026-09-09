@@ -16,9 +16,11 @@
  *     `rhcl-apps.banking-api-connectivity.0`). To aggregate across all
  *     rules of one HTTPRoute we match `route_name=~"<ns>\\.<name>\\..*"`.
  *   - Gateway-level series carry `source_canonical_service` set to
- *     `<gateway-name>-<gatewayclass>` (e.g.
- *     `rhcl-apps-gateway-openshift-default`), again per Istio's auto-
- *     generated naming. Match `source_canonical_service=~"<name>-.*"`.
+ *     `<gateway-name>-<gatewayclass>`, where the suffix is the Gateway's
+ *     GatewayClass name — so it varies per cluster (e.g.
+ *     `rhcl-apps-gateway-istio` on an `istio` GatewayClass, verified via
+ *     `count by (source_canonical_service)(istio_requests_total)`). We match
+ *     `source_canonical_service=~"<name>-.*"`, which is class-agnostic.
  *   - Response status is `response_code` (NOT `envoy_response_code` —
  *     that's a different metric family).
  *   - Latency histogram bucket label is `le` as usual; same selectors.
