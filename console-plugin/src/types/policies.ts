@@ -80,6 +80,15 @@ export interface AuthPolicy extends K8sResourceCommon {
   };
 }
 
+/**
+ * A rate-limit counter key. Two forms exist in the wild (mirroring `when`):
+ *   - Legacy string form: "auth.identity.userid"
+ *   - CEL object form (Kuadrant v1+): { expression: "auth.identity.userid" }
+ * The object form is what the cluster emits today. Use counterText() to render
+ * or match either form as a string.
+ */
+export type RateLimitCounter = string | { expression?: string };
+
 export interface RateLimit {
   // Sometimes omitted (unlimited tier) — the visualizer treats absent/empty
   // rates as "Unlimited" rather than as "broken policy".
@@ -87,7 +96,9 @@ export interface RateLimit {
     limit: number;
     window: string;
   }[];
-  counters?: string[];
+  // Counter keys. Legacy string form or CEL object form { expression } (v1+).
+  // Use counterText() to render/match either. See RateLimitCounter.
+  counters?: RateLimitCounter[];
   // Two forms exist in the wild:
   //   - Legacy expression form: { selector, operator, value }
   //   - CEL form (Kuadrant v1+):  { predicate: "auth.kuadrant.plan == 'gold'" }
@@ -100,6 +111,17 @@ export interface RateLimit {
   } | {
     predicate: string;
   })[];
+}
+
+/**
+ * Normalise a rate-limit counter (string or `{ expression }`) to its text form
+ * for display and matching. Prevents rendering the raw object as a React child
+ * (which throws — see the v1 object-counter regression) and stops it
+ * stringifying to "[object Object]" in labels.
+ */
+export function counterText(counter: RateLimitCounter | undefined | null): string {
+  if (counter == null) return '';
+  return typeof counter === 'string' ? counter : counter.expression ?? '';
 }
 
 export interface RateLimitPolicySpec {

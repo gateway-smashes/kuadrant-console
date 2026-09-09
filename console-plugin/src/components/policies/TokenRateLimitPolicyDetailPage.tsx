@@ -15,7 +15,7 @@ import {
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import { useTranslation } from 'react-i18next';
 import { TokenRateLimitPolicyGVK } from '../../models';
-import { TokenRateLimitPolicy } from '../../types';
+import { TokenRateLimitPolicy, counterText } from '../../types';
 import { primaryTargetRef } from '../../utils/policyTargets';
 import { PolicyLayout } from './shared/PolicyLayout';
 import { PolicyHeader } from './shared/PolicyHeader';
@@ -42,7 +42,7 @@ interface TokenBucketRow {
 
 function collectBuckets(policy: TokenRateLimitPolicy): TokenBucketRow[] {
   const spec = policy.spec as unknown as {
-    limits?: Record<string, { rates?: { limit: number; window: string }[]; counters?: string[]; when?: Array<{ predicate?: string }> }>;
+    limits?: Record<string, { rates?: { limit: number; window: string }[]; counters?: Array<string | { expression?: string }>; when?: Array<{ predicate?: string }> }>;
   };
   const limits = spec.limits || {};
   return Object.entries(limits).map(([name, val]) => {
@@ -51,7 +51,7 @@ function collectBuckets(policy: TokenRateLimitPolicy): TokenBucketRow[] {
       name,
       size: rate?.limit,
       refill: rate ? { rate: rate.limit, period: rate.window } : undefined,
-      scope: val.counters?.[0] || 'global',
+      scope: counterText(val.counters?.[0]) || 'global',
       when: val.when?.[0]?.predicate,
     };
   });

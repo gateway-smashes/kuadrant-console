@@ -32,7 +32,7 @@ import FilterToolbar from '../common/FilterToolbar';
 import ResourceActionsMenu from '../common/ResourceActionsMenu';
 import CreateResourceMenu from '../common/CreateResourceMenu';
 import { ratesToRpm } from './RateLimitVisualizer';
-import { RateLimit } from '../../types';
+import { RateLimit, counterText } from '../../types';
 import '../../styles/plugin-glass.css';
 
 interface PolicyRow {
@@ -332,7 +332,7 @@ function describePolicyRow(row: PolicyRow): { scope: string | null; limit: strin
     ...(spec?.overrides?.limits || {}),
   };
   const allLimits = Object.values(merged);
-  const counters = allLimits.flatMap((l) => l.counters || []).filter(Boolean);
+  const counters = allLimits.flatMap((l) => l.counters || []).map(counterText).filter(Boolean);
 
   let scope = 'Per route';
   if (row.targetRef.kind === 'Gateway') scope = 'Per gateway';

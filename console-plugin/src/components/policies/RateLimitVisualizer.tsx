@@ -18,7 +18,7 @@ import {
   Tooltip,
 } from '@patternfly/react-core';
 import { useTranslation } from 'react-i18next';
-import { RateLimit } from '../../types';
+import { RateLimit, counterText } from '../../types';
 
 /**
  * Shared rate-limit visualizer.
@@ -228,7 +228,7 @@ const LimitCard: React.FC<{
             </div>
             <LabelGroup numLabels={3} isCompact>
               {limit.counters.map((c, i) => (
-                <Label key={i} color="grey" isCompact>{c}</Label>
+                <Label key={i} color="grey" isCompact>{counterText(c)}</Label>
               ))}
             </LabelGroup>
           </div>
