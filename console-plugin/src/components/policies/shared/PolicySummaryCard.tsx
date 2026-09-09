@@ -40,7 +40,14 @@ export const PolicySummaryCard: React.FC<Props> = ({
   scope,
 }) => {
   const { t } = useTranslation('plugin__kuadrant-console');
-  const owner = policy.metadata?.ownerReferences?.[0]?.name;
+  // Show the owner as `Kind/name` (e.g. a RateLimitPolicy materialised by a
+  // PlanPolicy) so a bare name isn't mistaken for a person/free-text field.
+  const ownerRef = policy.metadata?.ownerReferences?.[0];
+  const owner = ownerRef
+    ? ownerRef.kind
+      ? `${ownerRef.kind}/${ownerRef.name}`
+      : ownerRef.name
+    : undefined;
   return (
     <Card>
       <CardTitle>{t('Summary')}</CardTitle>

@@ -1072,6 +1072,29 @@ export function useTlsTroubleshooting(selectedHostname: string | null): TlsFlow 
         detail: `Reissue the certificate including ${hostname}.`,
       });
     }
+    // Listener isn't HTTPS (or is absent). The Root Cause panel already flags
+    // this; without a matching recommendation the Smart Recommendations card
+    // read "nothing to recommend" while Root Cause showed an actionable finding.
+    // Keep the two surfaces in sync.
+    if (gateway && matchingListener && matchingListener.protocol !== 'HTTPS') {
+      recommendations.push({
+        id: 'listener-not-https',
+        severity: 'warning',
+        title: 'Gateway listener is not HTTPS',
+        detail: `The listener serving ${hostname || 'this hostname'} is ${
+          matchingListener.protocol || 'not HTTPS'
+        }. Add an HTTPS listener (and a TLSPolicy) so the gateway terminates TLS here.`,
+      });
+    } else if (gateway && !matchingListener) {
+      recommendations.push({
+        id: 'no-matching-listener',
+        severity: 'warning',
+        title: 'No Gateway listener for this hostname',
+        detail: `Add an HTTPS listener to the Gateway for ${
+          hostname || 'this hostname'
+        } so it can terminate TLS.`,
+      });
+    }
 
     // ---------------------------------------------------------------
     // CERTIFICATE SUMMARY (for the Certificate Details card)
