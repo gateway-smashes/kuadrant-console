@@ -25,17 +25,26 @@ cluster. The plugin registers with the Console under the technical name
 The plugin ships as an nginx container serving the static webpack output. The
 two-stage Dockerfile uses `ubi9/nodejs-22` to build and `ubi9/nginx` at runtime.
 
+A pre-built image is published at
+`quay.io/gateway-smashes/kuadrant-console:1.5.1` (also tagged `latest`,
+`linux/amd64`). Use it directly and skip to step 2 unless you need a custom
+build.
+
 ```bash
 cd console-plugin
-podman build -t quay.io/<org>/kuadrant-console:latest .
+podman build --platform linux/amd64 -t quay.io/<org>/kuadrant-console:latest .
 podman push  quay.io/<org>/kuadrant-console:latest
 ```
+
+> `--platform linux/amd64` is not optional on an Apple Silicon Mac. Podman
+> defaults to the host architecture, and an arm64 image fails to start on
+> x86-64 cluster nodes with an exec-format error.
 
 ## 2. Deploy the plugin server
 
 ```bash
 export RHCL_CONSOLE_NS=kuadrant-console
-export RHCL_CONSOLE_IMAGE=quay.io/<org>/kuadrant-console:latest
+export RHCL_CONSOLE_IMAGE=quay.io/gateway-smashes/kuadrant-console:1.5.1
 
 oc new-project "$RHCL_CONSOLE_NS" || true
 
