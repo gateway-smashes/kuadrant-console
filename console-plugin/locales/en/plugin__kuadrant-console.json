@@ -894,5 +894,6 @@
   "Your API is now published.": "Your API is now published.",
   "Your browser blocked the automatic redirect. Click the button below to continue.": "Your browser blocked the automatic redirect. Click the button below to continue.",
   "Your Gateway \"{{gw}}\" advertises hostnames, but no DNSPolicy is publishing records for them. Create one to start managed DNS and unlock the full troubleshooting flow.": "Your Gateway \"{{gw}}\" advertises hostnames, but no DNSPolicy is publishing records for them. Create one to start managed DNS and unlock the full troubleshooting flow.",
-  "Δ vs previous 24h": "Δ vs previous 24h"
+  "Δ vs previous 24h": "Δ vs previous 24h",
+  "Replace the placeholder tokens (like `<name>`) with real values to enable Create.": "Replace the placeholder tokens (like `<name>`) with real values to enable Create."
 }

@@ -269,6 +269,11 @@ const ResourceEditorModal: React.FC<ResourceEditorModalProps> = ({
     }
   };
 
+  // Disable Create while the starter YAML still has `<…>` placeholder tokens,
+  // instead of letting the click through to a post-submit "Create failed" error.
+  // The submit() guard above stays as a fallback.
+  const hasPlaceholders = mode === 'create' && /<[^>]+>/.test(yaml);
+
   const title =
     mode === 'create'
       ? t('Create {{kind}}', { kind: gvk.kind })
@@ -358,9 +363,23 @@ const ResourceEditorModal: React.FC<ResourceEditorModalProps> = ({
             </pre>
           </Alert>
         )}
+        {hasPlaceholders && !error && (
+          <Alert
+            variant="info"
+            isInline
+            isPlain
+            title={t('Replace the placeholder tokens (like `<name>`) with real values to enable Create.')}
+            style={{ marginTop: 12 }}
+          />
+        )}
       </ModalBody>
       <ModalFooter>
-        <Button variant="primary" onClick={submit} isLoading={submitting} isDisabled={submitting}>
+        <Button
+          variant="primary"
+          onClick={submit}
+          isLoading={submitting}
+          isDisabled={submitting || hasPlaceholders}
+        >
           {mode === 'create' ? t('Create') : t('Save')}
         </Button>
         <Button variant="link" onClick={onClose} isDisabled={submitting}>
