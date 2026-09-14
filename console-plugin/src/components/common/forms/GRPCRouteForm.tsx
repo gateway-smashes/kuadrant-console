@@ -8,6 +8,7 @@ import {
 } from '@patternfly/react-core';
 import { MinusCircleIcon, PlusCircleIcon } from '@patternfly/react-icons';
 import { load as yamlLoad, dump as yamlDump } from 'js-yaml';
+import { GatewayRefSelect, ServiceRefSelect } from './RefSelects';
 
 /**
  * GRPCRoute form — same skeleton as HTTPRoute (parents + hostnames +
@@ -225,12 +226,9 @@ const GRPCRouteForm: React.FC<Props> = ({ yaml, onChange }) => {
       <Content><h4 style={{ margin: '4px 0' }}>Parent Gateways</h4></Content>
       <div style={{ display: 'grid', gap: 8 }}>
         {values.parentRefs.map((p, i) => (
-          <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: 8, alignItems: 'center' }}>
-            <FormGroup label={i === 0 ? 'Gateway name' : ''}>
-              <TextInput value={p.name} onChange={(_e, v) => updateParent(i, { name: v })} placeholder="rhcl-apps-gateway" />
-            </FormGroup>
-            <FormGroup label={i === 0 ? 'Gateway namespace' : ''}>
-              <TextInput value={p.namespace} onChange={(_e, v) => updateParent(i, { namespace: v })} placeholder="openshift-ingress" />
+          <div key={i} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr auto', gap: 8, alignItems: 'start' }}>
+            <FormGroup label={i === 0 ? 'Gateway' : ''}>
+              <GatewayRefSelect name={p.name} namespace={p.namespace} onChange={(ref) => updateParent(i, ref)} />
             </FormGroup>
             <FormGroup label={i === 0 ? 'Section name (listener)' : ''}>
               <TextInput value={p.sectionName} onChange={(_e, v) => updateParent(i, { sectionName: v })} placeholder="grpc" />
@@ -344,7 +342,11 @@ const GRPCRouteForm: React.FC<Props> = ({ yaml, onChange }) => {
           {r.backendRefs.map((b, bi) => (
             <div key={bi} style={{ display: 'grid', gridTemplateColumns: '1fr 100px 100px auto', gap: 8, alignItems: 'center' }}>
               <FormGroup label={bi === 0 ? 'Service name' : ''}>
-                <TextInput value={b.name} onChange={(_e, v) => updateBackend(ri, bi, { name: v })} placeholder="pix-grpc-backend" />
+                <ServiceRefSelect
+                  namespace={values.namespace}
+                  name={b.name}
+                  onChange={(ref) => updateBackend(ri, bi, { name: ref.name, ...(ref.port ? { port: ref.port } : {}) })}
+                />
               </FormGroup>
               <FormGroup label={bi === 0 ? 'Port' : ''}>
                 <TextInput type="number" value={b.port} onChange={(_e, v) => updateBackend(ri, bi, { port: Number(v) || 0 })} />
