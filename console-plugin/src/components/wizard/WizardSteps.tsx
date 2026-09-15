@@ -725,11 +725,13 @@ export const GatewayStep: React.FC<{ state: WizardState; patch: Patch }> = ({ st
           )}
 
           <Field
-            label="Public hostname"
+            label={state.useExistingGateway ? 'Public hostname' : 'Public hostname *'}
             hint={
               state.useExistingGateway && gatewayHostnames.length > 0
                 ? 'Must match one of the hostnames the selected Gateway already advertises — otherwise the HTTPRoute lands as NoMatchingListenerHostname.'
-                : "The DNS name consumers will call. Leave empty to inherit the gateway's wildcard."
+                : state.useExistingGateway
+                ? "The DNS name consumers will call. Leave empty to inherit the gateway's wildcard."
+                : 'Required — a new Gateway has no wildcard to inherit. This is the DNS name consumers will call; it is used for the listener, the HTTPRoute and the TLS certificate.'
             }
           >
             {state.useExistingGateway && gatewayHostnames.length > 0 ? (

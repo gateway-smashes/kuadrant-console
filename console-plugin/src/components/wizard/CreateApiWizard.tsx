@@ -91,7 +91,12 @@ const CreateApiWizard: React.FC = () => {
           state.backends.every((b) => !!(b.namespace && b.name && b.port))
         );
       case 'gateway':
-        return state.useExistingGateway ? !!state.existingGatewayName : !!state.gatewayName;
+        // A new Gateway has no wildcard to inherit, so it needs an explicit
+        // hostname — otherwise the generated listener/HTTPRoute get host="" and
+        // the generated TLSPolicy is invalid. An existing Gateway can inherit.
+        return state.useExistingGateway
+          ? !!state.existingGatewayName
+          : !!(state.gatewayName && state.hostname);
       case 'routes':
         return state.routes.length > 0 && state.routes.every((r) => !!r.path);
       case 'security':
