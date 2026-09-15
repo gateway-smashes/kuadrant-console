@@ -113,6 +113,12 @@ export const ServiceGVK: K8sGroupVersionKind = {
   kind: 'Service',
 };
 
+export const NamespaceGVK: K8sGroupVersionKind = {
+  group: '',
+  version: 'v1',
+  kind: 'Namespace',
+};
+
 export const EndpointSliceGVK: K8sGroupVersionKind = {
   group: 'discovery.k8s.io',
   version: 'v1',

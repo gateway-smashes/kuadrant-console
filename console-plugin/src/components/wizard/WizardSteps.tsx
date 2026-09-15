@@ -28,7 +28,7 @@ import {
   K8sResourceCommon,
   useK8sWatchResource,
 } from '@openshift-console/dynamic-plugin-sdk';
-import { GatewayGVK, ServiceGVK } from '../../models';
+import { GatewayGVK, ServiceGVK, NamespaceGVK } from '../../models';
 import {
   WizardState,
   TEMPLATES,
@@ -318,23 +318,138 @@ interface ServiceResource extends K8sResourceCommon {
   spec?: { ports?: { port: number; name?: string; protocol?: string }[] };
 }
 
+// One backend row. It owns a Services watch SCOPED TO ITS OWN NAMESPACE, and
+// skips the watch entirely (null) until a namespace is chosen. This replaces a
+// previous cluster-wide Services list watch that loaded every Service in every
+// namespace — on a real cluster that hung the whole wizard (unresponsive page,
+// dropdowns that never populated), blocking the flow at this step.
+const BackendRow: React.FC<{
+  b: BackendPoolEntry;
+  namespaces: string[];
+  namespacesLoaded: boolean;
+  isMulti: boolean;
+  primaryNs: string;
+  onUpdate: (id: string, upd: Partial<BackendPoolEntry>) => void;
+  onRemove: (id: string) => void;
+}> = ({ b, namespaces, namespacesLoaded, isMulti, primaryNs, onUpdate, onRemove }) => {
+  const [services] = useK8sWatchResource<ServiceResource[]>(
+    b.namespace
+      ? { groupVersionKind: ServiceGVK, isList: true, namespace: b.namespace }
+      : null,
+  );
+  const svcs = services || [];
+  const svc = svcs.find((s) => s.metadata?.name === b.name);
+  const ports = svc?.spec?.ports || [];
+  const isRemote = !!primaryNs && !!b.namespace && b.namespace !== primaryNs;
+  return (
+    <div className="rhcl-wiz-backend-row">
+      <select
+        className="rhcl-wiz-select"
+        value={b.namespace}
+        onChange={(e) => onUpdate(b.id, { namespace: e.target.value, name: '', port: null })}
+      >
+        <option value="">{namespacesLoaded ? 'Select…' : 'Loading…'}</option>
+        {namespaces.map((ns) => (
+          <option key={ns} value={ns}>
+            {ns}
+          </option>
+        ))}
+      </select>
+
+      <select
+        className="rhcl-wiz-select"
+        value={b.name}
+        disabled={!b.namespace}
+        onChange={(e) => {
+          const s = svcs.find((x) => x.metadata?.name === e.target.value);
+          const firstPort = s?.spec?.ports?.[0]?.port ?? null;
+          onUpdate(b.id, { name: e.target.value, port: firstPort });
+        }}
+      >
+        <option value="">Select…</option>
+        {svcs.map((s) => (
+          <option key={s.metadata?.name} value={s.metadata?.name}>
+            {s.metadata?.name}
+          </option>
+        ))}
+      </select>
+
+      <select
+        className="rhcl-wiz-select"
+        value={b.port ?? ''}
+        disabled={!b.name}
+        onChange={(e) => onUpdate(b.id, { port: Number(e.target.value) })}
+      >
+        <option value="">—</option>
+        {ports.map((p) => (
+          <option key={p.port} value={p.port}>
+            {p.port}
+            {p.name ? ` (${p.name})` : ''}
+          </option>
+        ))}
+      </select>
+
+      <select
+        className="rhcl-wiz-select"
+        value={b.protocol}
+        onChange={(e) =>
+          onUpdate(b.id, { protocol: e.target.value as BackendPoolEntry['protocol'] })
+        }
+      >
+        <option value="HTTP">HTTP</option>
+        <option value="HTTPS">HTTPS</option>
+        <option value="GRPC">gRPC</option>
+      </select>
+
+      <input
+        type="number"
+        min={1}
+        max={1000}
+        className="rhcl-wiz-input"
+        value={b.weight}
+        onChange={(e) => onUpdate(b.id, { weight: Math.max(1, Number(e.target.value) || 1) })}
+        disabled={!isMulti}
+        title={
+          isMulti
+            ? 'Relative weight in the traffic split'
+            : 'Weights only apply once you add a second backend'
+        }
+      />
+
+      <button
+        className="rhcl-wiz-icon-btn"
+        onClick={() => onRemove(b.id)}
+        aria-label={`Remove ${b.namespace}/${b.name}`}
+        title="Remove backend"
+      >
+        <MinusCircleIcon />
+      </button>
+
+      {isRemote && (
+        <div className="rhcl-wiz-backend-note">
+          Cross-namespace — a ReferenceGrant is generated in
+          <code> {b.namespace}</code>.
+        </div>
+      )}
+    </div>
+  );
+};
+
 export const BackendStep: React.FC<{ state: WizardState; patch: Patch }> = ({ state, patch }) => {
-  const [services, svcLoaded] = useK8sWatchResource<ServiceResource[]>({
-    groupVersionKind: ServiceGVK,
+  // Namespaces feed the per-row namespace picker. Cluster-scoped and small
+  // (unlike a cluster-wide Services list) — the operator picks a namespace and
+  // each row then watches only that namespace's Services.
+  const [namespaceObjs, namespacesLoaded] = useK8sWatchResource<K8sResourceCommon[]>({
+    groupVersionKind: NamespaceGVK,
     isList: true,
   });
 
   const namespaces = React.useMemo(() => {
-    const set = new Set<string>();
-    for (const s of services || []) {
-      const ns = s.metadata?.namespace;
-      if (ns && !ns.startsWith('openshift') && !ns.startsWith('kube-')) set.add(ns);
-    }
-    return [...set].sort();
-  }, [services]);
-
-  const servicesInNs = (ns: string): ServiceResource[] =>
-    (services || []).filter((s) => s.metadata?.namespace === ns);
+    return (namespaceObjs || [])
+      .map((n) => n.metadata?.name)
+      .filter((n): n is string => !!n && !n.startsWith('openshift') && !n.startsWith('kube-'))
+      .sort();
+  }, [namespaceObjs]);
 
   const addBackend = () => {
     const entry: BackendPoolEntry = {
@@ -408,109 +523,18 @@ export const BackendStep: React.FC<{ state: WizardState; patch: Patch }> = ({ st
               </div>
             )}
 
-            {state.backends.map((b) => {
-              const svcs = servicesInNs(b.namespace);
-              const svc = svcs.find((s) => s.metadata?.name === b.name);
-              const ports = svc?.spec?.ports || [];
-              const isRemote = !!primaryNs && b.namespace && b.namespace !== primaryNs;
-              return (
-                <div className="rhcl-wiz-backend-row" key={b.id}>
-                  <select
-                    className="rhcl-wiz-select"
-                    value={b.namespace}
-                    onChange={(e) => {
-                      const ns = e.target.value;
-                      updateBackend(b.id, { namespace: ns, name: '', port: null });
-                    }}
-                  >
-                    <option value="">{svcLoaded ? 'Select…' : 'Loading…'}</option>
-                    {namespaces.map((ns) => (
-                      <option key={ns} value={ns}>
-                        {ns}
-                      </option>
-                    ))}
-                  </select>
-
-                  <select
-                    className="rhcl-wiz-select"
-                    value={b.name}
-                    disabled={!b.namespace}
-                    onChange={(e) => {
-                      const s = servicesInNs(b.namespace).find(
-                        (x) => x.metadata?.name === e.target.value,
-                      );
-                      const firstPort = s?.spec?.ports?.[0]?.port ?? null;
-                      updateBackend(b.id, { name: e.target.value, port: firstPort });
-                    }}
-                  >
-                    <option value="">Select…</option>
-                    {svcs.map((s) => (
-                      <option key={s.metadata?.name} value={s.metadata?.name}>
-                        {s.metadata?.name}
-                      </option>
-                    ))}
-                  </select>
-
-                  <select
-                    className="rhcl-wiz-select"
-                    value={b.port ?? ''}
-                    disabled={!b.name}
-                    onChange={(e) => updateBackend(b.id, { port: Number(e.target.value) })}
-                  >
-                    <option value="">—</option>
-                    {ports.map((p) => (
-                      <option key={p.port} value={p.port}>
-                        {p.port}
-                        {p.name ? ` (${p.name})` : ''}
-                      </option>
-                    ))}
-                  </select>
-
-                  <select
-                    className="rhcl-wiz-select"
-                    value={b.protocol}
-                    onChange={(e) =>
-                      updateBackend(b.id, {
-                        protocol: e.target.value as BackendPoolEntry['protocol'],
-                      })
-                    }
-                  >
-                    <option value="HTTP">HTTP</option>
-                    <option value="HTTPS">HTTPS</option>
-                    <option value="GRPC">gRPC</option>
-                  </select>
-
-                  <input
-                    type="number"
-                    min={1}
-                    max={1000}
-                    className="rhcl-wiz-input"
-                    value={b.weight}
-                    onChange={(e) =>
-                      updateBackend(b.id, { weight: Math.max(1, Number(e.target.value) || 1) })
-                    }
-                    disabled={!isMulti}
-                    title={isMulti ? 'Relative weight in the traffic split' : 'Weights only apply once you add a second backend'}
-                  />
-
-                  <button
-                    className="rhcl-wiz-icon-btn"
-                    onClick={() => removeBackend(b.id)}
-                    aria-label={`Remove ${b.namespace}/${b.name}`}
-                    title="Remove backend"
-                  >
-                    <MinusCircleIcon />
-                  </button>
-
-                  {isRemote && (
-                    <div className="rhcl-wiz-backend-note">
-                      Cross-namespace — a ReferenceGrant is generated in
-                      <code> {b.namespace}</code>.
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+            {state.backends.map((b) => (
+              <BackendRow
+                key={b.id}
+                b={b}
+                namespaces={namespaces}
+                namespacesLoaded={namespacesLoaded}
+                isMulti={isMulti}
+                primaryNs={primaryNs}
+                onUpdate={updateBackend}
+                onRemove={removeBackend}
+              />
+            ))}
 
             <button className="rhcl-wiz-add-btn" onClick={addBackend}>
               <PlusCircleIcon /> Add backend
@@ -701,11 +725,13 @@ export const GatewayStep: React.FC<{ state: WizardState; patch: Patch }> = ({ st
           )}
 
           <Field
-            label="Public hostname"
+            label={state.useExistingGateway ? 'Public hostname' : 'Public hostname *'}
             hint={
               state.useExistingGateway && gatewayHostnames.length > 0
                 ? 'Must match one of the hostnames the selected Gateway already advertises — otherwise the HTTPRoute lands as NoMatchingListenerHostname.'
-                : "The DNS name consumers will call. Leave empty to inherit the gateway's wildcard."
+                : state.useExistingGateway
+                ? "The DNS name consumers will call. Leave empty to inherit the gateway's wildcard."
+                : 'Required — a new Gateway has no wildcard to inherit. This is the DNS name consumers will call; it is used for the listener, the HTTPRoute and the TLS certificate.'
             }
           >
             {state.useExistingGateway && gatewayHostnames.length > 0 ? (
@@ -1083,7 +1109,7 @@ export const SecurityStep: React.FC<{ state: WizardState; patch: Patch }> = ({ s
         )}
         {state.authMode === 'anonymous' && (
           <div className="rhcl-wiz-validation warn">
-            Anyone on the network can call this API. Pick API Key or JWT if the data isn't public.
+            Anyone on the network can call this API. Pick API Key or JWT if the data isn&apos;t public.
           </div>
         )}
       </div>
@@ -1211,7 +1237,7 @@ export const PoliciesStep: React.FC<{ state: WizardState; patch: Patch }> = ({ s
       >
         <div className="rhcl-wiz-policy-body">
           <p className="rhcl-wiz-policy-note">
-            Publishes the hostname on the cluster's DNS provider (managed by the DNSPolicy credentials
+            Publishes the hostname on the cluster&apos;s DNS provider (managed by the DNSPolicy credentials
             secret). No fields needed for the default provider.
           </p>
         </div>

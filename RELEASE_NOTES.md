@@ -2,6 +2,8 @@
 
 ## v1.5.1 — 2026-08-05
 
+Image: `quay.io/gateway-smashes/kuadrant-console:1.5.1` (`linux/amd64`)
+
 ### Fixes
 - **Overview summary cards**: the status breakdown row (Healthy / Critical /
   Warning / Enforced / Accepted / Overridden / Detected / Published / Draft /

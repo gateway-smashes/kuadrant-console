@@ -10,6 +10,7 @@ import {
 } from '@patternfly/react-core';
 import { MinusCircleIcon, PlusCircleIcon } from '@patternfly/react-icons';
 import { load as yamlLoad, dump as yamlDump } from 'js-yaml';
+import { GatewayRefSelect, ServiceRefSelect } from './RefSelects';
 
 /**
  * HTTPRoute form — routes traffic on a Gateway to backend Services.
@@ -238,12 +239,9 @@ const HTTPRouteForm: React.FC<Props> = ({ yaml, onChange }) => {
       <Content><h4 style={{ margin: '4px 0' }}>Parent Gateways</h4></Content>
       <div style={{ display: 'grid', gap: 8 }}>
         {values.parentRefs.map((p, i) => (
-          <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: 8, alignItems: 'center' }}>
-            <FormGroup label={i === 0 ? 'Gateway name' : ''}>
-              <TextInput value={p.name} onChange={(_e, v) => updateParent(i, { name: v })} placeholder="rhcl-apps-gateway" />
-            </FormGroup>
-            <FormGroup label={i === 0 ? 'Gateway namespace' : ''}>
-              <TextInput value={p.namespace} onChange={(_e, v) => updateParent(i, { namespace: v })} placeholder="openshift-ingress" />
+          <div key={i} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr auto', gap: 8, alignItems: 'start' }}>
+            <FormGroup label={i === 0 ? 'Gateway' : ''}>
+              <GatewayRefSelect name={p.name} namespace={p.namespace} onChange={(ref) => updateParent(i, ref)} />
             </FormGroup>
             <FormGroup label={i === 0 ? 'Section name (listener)' : ''}>
               <TextInput value={p.sectionName} onChange={(_e, v) => updateParent(i, { sectionName: v })} placeholder="https" />
@@ -361,7 +359,11 @@ const HTTPRouteForm: React.FC<Props> = ({ yaml, onChange }) => {
           <Content><em>Backends</em></Content>
           {r.backendRefs.map((b, bi) => (
             <div key={bi} style={{ display: 'grid', gridTemplateColumns: '1fr 100px 100px auto', gap: 8, alignItems: 'center' }}>
-              <TextInput value={b.name} onChange={(_e, v) => updateBackend(ri, bi, { name: v })} placeholder="banking-api-v1" />
+              <ServiceRefSelect
+                namespace={values.namespace}
+                name={b.name}
+                onChange={(ref) => updateBackend(ri, bi, { name: ref.name, ...(ref.port ? { port: ref.port } : {}) })}
+              />
               <TextInput type="number" value={b.port} onChange={(_e, v) => updateBackend(ri, bi, { port: Number(v) || 0 })} />
               <TextInput type="number" value={b.weight} onChange={(_e, v) => updateBackend(ri, bi, { weight: Number(v) || 0 })} />
               <Button
