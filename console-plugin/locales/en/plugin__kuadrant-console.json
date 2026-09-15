@@ -1061,5 +1061,6 @@
   "DNSPolicy": "DNSPolicy",
   "TLSPolicy": "TLSPolicy",
   "All policy types": "All policy types",
-  "All types": "All types"
+  "All types": "All types",
+  "Replace the placeholder tokens (like `<name>`) with real values to enable Create.": "Replace the placeholder tokens (like `<name>`) with real values to enable Create."
 }
