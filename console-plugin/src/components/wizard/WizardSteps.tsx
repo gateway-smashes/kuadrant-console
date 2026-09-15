@@ -1109,7 +1109,7 @@ export const SecurityStep: React.FC<{ state: WizardState; patch: Patch }> = ({ s
         )}
         {state.authMode === 'anonymous' && (
           <div className="rhcl-wiz-validation warn">
-            Anyone on the network can call this API. Pick API Key or JWT if the data isn't public.
+            Anyone on the network can call this API. Pick API Key or JWT if the data isn&apos;t public.
           </div>
         )}
       </div>
@@ -1237,7 +1237,7 @@ export const PoliciesStep: React.FC<{ state: WizardState; patch: Patch }> = ({ s
       >
         <div className="rhcl-wiz-policy-body">
           <p className="rhcl-wiz-policy-note">
-            Publishes the hostname on the cluster's DNS provider (managed by the DNSPolicy credentials
+            Publishes the hostname on the cluster&apos;s DNS provider (managed by the DNSPolicy credentials
             secret). No fields needed for the default provider.
           </p>
         </div>
