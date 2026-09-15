@@ -7,6 +7,8 @@ import {
   TextInput,
 } from '@patternfly/react-core';
 import { load as yamlLoad, dump as yamlDump } from 'js-yaml';
+import { NamespacedNameSelect } from './RefSelects';
+import { GatewayGVK, HTTPRouteGVK } from '../../../models';
 
 /**
  * Guided form for an AuthPolicy CR. Renders the tiny subset of the
@@ -207,7 +209,13 @@ const AuthPolicyForm: React.FC<Props> = ({ yaml, onChange }) => {
         </div>
       </FormGroup>
       <FormGroup label={`${values.targetKind} name`} isRequired>
-        <TextInput value={values.targetName} onChange={(_e, v) => update({ targetName: v })} />
+        <NamespacedNameSelect
+          gvk={values.targetKind === 'Gateway' ? GatewayGVK : HTTPRouteGVK}
+          namespace={values.namespace}
+          value={values.targetName}
+          onChange={(name) => update({ targetName: name })}
+          kindLabel={values.targetKind}
+        />
       </FormGroup>
 
       <Content>
