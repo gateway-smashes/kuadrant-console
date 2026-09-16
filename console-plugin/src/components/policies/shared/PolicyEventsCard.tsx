@@ -74,23 +74,23 @@ export const PolicyEventsCard: React.FC<Props> = ({ policy }) => {
               <div
                 key={e.id}
                 style={{
-                  borderLeft: '2px solid var(--pf-v5-global--BorderColor--100)',
+                  borderLeft: '2px solid var(--pf-t--global--border--color--default)',
                   paddingLeft: 12,
                 }}
               >
-                <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                   {isoToHuman(e.iso)}
                 </div>
                 <div style={{ fontSize: 14, fontWeight: 500 }}>
                   {e.type} <span style={{ fontWeight: 400 }}>= {e.status}</span>
                   {e.reason && (
-                    <span style={{ marginLeft: 8, color: 'var(--pf-v5-global--Color--200)' }}>
+                    <span style={{ marginLeft: 8, color: 'var(--pf-t--global--text--color--subtle)' }}>
                       ({e.reason})
                     </span>
                   )}
                 </div>
                 {e.message && (
-                  <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                  <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                     {e.message}
                   </div>
                 )}

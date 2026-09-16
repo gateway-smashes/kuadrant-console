@@ -153,7 +153,7 @@ function Empty({ children }: { children: React.ReactNode }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: 'var(--pf-v5-global--Color--200)',
+        color: 'var(--pf-t--global--text--color--subtle)',
         textAlign: 'center',
         padding: '0 20px',
       }}

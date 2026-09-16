@@ -24,13 +24,13 @@ interface Props {
 
 const SEVERITY_ICON: Record<NeedsAttentionItem['severity'], React.ReactNode> = {
   critical: (
-    <ExclamationCircleIcon color="var(--pf-v5-global--danger-color--100)" aria-hidden="true" />
+    <ExclamationCircleIcon color="var(--pf-t--global--color--status--danger--default)" aria-hidden="true" />
   ),
   warning: (
-    <ExclamationTriangleIcon color="var(--pf-v5-global--warning-color--100)" aria-hidden="true" />
+    <ExclamationTriangleIcon color="var(--pf-t--global--color--status--warning--default)" aria-hidden="true" />
   ),
   info: (
-    <InfoCircleIcon color="var(--pf-v5-global--info-color--100)" aria-hidden="true" />
+    <InfoCircleIcon color="var(--pf-t--global--color--status--info--default)" aria-hidden="true" />
   ),
 };
 
@@ -56,7 +56,7 @@ export const NeedsAttentionPanel: React.FC<Props> = ({ items, onViewAll }) => {
       <CardTitle>{t('Needs Attention')}</CardTitle>
       <CardBody>
         {sorted.length === 0 ? (
-          <span style={{ color: 'var(--pf-v5-global--Color--200)', fontSize: 13 }}>
+          <span style={{ color: 'var(--pf-t--global--text--color--subtle)', fontSize: 13 }}>
             {t('All clear — no operational issues at the moment.')}
           </span>
         ) : (
@@ -70,7 +70,7 @@ export const NeedsAttentionPanel: React.FC<Props> = ({ items, onViewAll }) => {
                     padding: '8px 0',
                     color: 'inherit',
                     textDecoration: 'none',
-                    borderBottom: '1px solid var(--pf-v5-global--BorderColor--100)',
+                    borderBottom: '1px solid var(--pf-t--global--border--color--default)',
                   }}
                 >
                   <Flex
@@ -89,7 +89,7 @@ export const NeedsAttentionPanel: React.FC<Props> = ({ items, onViewAll }) => {
                             style={{
                               fontSize: 14,
                               fontWeight: 500,
-                              color: 'var(--pf-v5-global--Color--100)',
+                              color: 'var(--pf-t--global--text--color--regular)',
                             }}
                           >
                             {it.title}
@@ -97,7 +97,7 @@ export const NeedsAttentionPanel: React.FC<Props> = ({ items, onViewAll }) => {
                           <div
                             style={{
                               fontSize: 12,
-                              color: 'var(--pf-v5-global--Color--200)',
+                              color: 'var(--pf-t--global--text--color--subtle)',
                             }}
                           >
                             {it.detail}
@@ -114,7 +114,7 @@ export const NeedsAttentionPanel: React.FC<Props> = ({ items, onViewAll }) => {
                           <span
                             style={{
                               fontSize: 12,
-                              color: 'var(--pf-v5-global--Color--200)',
+                              color: 'var(--pf-t--global--text--color--subtle)',
                             }}
                           >
                             {it.occurredAt}
@@ -122,7 +122,7 @@ export const NeedsAttentionPanel: React.FC<Props> = ({ items, onViewAll }) => {
                         </FlexItem>
                         <FlexItem>
                           <AngleRightIcon
-                            color="var(--pf-v5-global--Color--200)"
+                            color="var(--pf-t--global--text--color--subtle)"
                             aria-hidden="true"
                           />
                         </FlexItem>

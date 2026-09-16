@@ -170,7 +170,7 @@ const RateLimitLimitsSection: React.FC<{
   if (Object.keys(merged).length === 0) return null;
   return (
     <div style={{ marginTop: 14 }}>
-      <div style={{ fontSize: 12, fontWeight: 600, marginBottom: 4, color: 'var(--pf-v5-global--Color--200)' }}>
+      <div style={{ fontSize: 12, fontWeight: 600, marginBottom: 4, color: 'var(--pf-t--global--text--color--subtle)' }}>
         {t('Limits')}{' '}
         <a
           style={{ fontWeight: 400, marginLeft: 6 }}

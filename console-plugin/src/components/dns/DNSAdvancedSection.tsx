@@ -86,7 +86,7 @@ const DNSAdvancedSection: React.FC<Props> = ({ objects }) => {
           isIndented={false}
         >
           {present.length === 0 ? (
-            <div style={{ fontSize: 13, color: 'var(--pf-v5-global--Color--200)' }}>
+            <div style={{ fontSize: 13, color: 'var(--pf-t--global--text--color--subtle)' }}>
               None of the pipeline CRs exist yet.
             </div>
           ) : (
@@ -108,7 +108,7 @@ const DNSAdvancedSection: React.FC<Props> = ({ objects }) => {
                     </h4>
                   </Content>
                   {(!o.conditions || o.conditions.length === 0) ? (
-                    <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                    <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                       No conditions on status yet.
                     </div>
                   ) : (
@@ -136,12 +136,12 @@ const DNSAdvancedSection: React.FC<Props> = ({ objects }) => {
                               <code style={{ fontSize: 12 }}>{c.reason || '—'}</code>
                             </Td>
                             <Td>
-                              <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                              <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                                 {c.message || '—'}
                               </span>
                             </Td>
                             <Td>
-                              <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                              <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                                 {c.lastTransitionTime ? new Date(c.lastTransitionTime).toLocaleString() : '—'}
                               </span>
                             </Td>

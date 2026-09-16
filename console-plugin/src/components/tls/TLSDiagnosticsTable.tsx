@@ -125,7 +125,7 @@ const TLSDiagnosticsTable: React.FC<Props> = ({ checks, onRunAll }) => (
                   <span
                     style={{
                       fontSize: 12,
-                      color: 'var(--pf-v5-global--Color--200)',
+                      color: 'var(--pf-t--global--text--color--subtle)',
                     }}
                   >
                     {c.durationMs} ms

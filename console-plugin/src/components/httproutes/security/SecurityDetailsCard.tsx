@@ -111,7 +111,7 @@ export const FeatureSubCard: React.FC<SubCardProps> = ({ title, feature, childre
           </FlexItem>
         </Flex>
         {feature.description && (
-          <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)', marginBottom: 8 }}>
+          <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)', marginBottom: 8 }}>
             {feature.description}
           </div>
         )}
@@ -176,7 +176,7 @@ const HeaderProbeActions: React.FC<{
 }> = ({ loading, configured, error, onRun }) => {
   if (!configured) {
     return (
-      <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+      <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
         Install the dns-prober companion to probe live security response headers.
       </div>
     );
@@ -196,7 +196,7 @@ const HeaderProbeActions: React.FC<{
       </FlexItem>
       {error && (
         <FlexItem>
-          <span style={{ fontSize: 12, color: 'var(--pf-v5-global--danger-color--100)' }}>
+          <span style={{ fontSize: 12, color: 'var(--pf-t--global--color--status--danger--default)' }}>
             {error}
           </span>
         </FlexItem>

@@ -24,7 +24,7 @@
 }
 .rhcl-tls-page .rhcl-tls-kpi-title {
   font-size: 12px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   text-transform: uppercase;
   letter-spacing: 0.4px;
   margin-bottom: 6px;
@@ -50,7 +50,7 @@
 }
 .rhcl-tls-page .rhcl-tls-kpi-secondary {
   font-size: 12px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   margin-top: 6px;
 }
 
@@ -78,11 +78,11 @@
 }
 .rhcl-tls-page .rhcl-tls-section-sub {
   font-size: 13px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
 }
 .rhcl-tls-page .rhcl-tls-empty {
   font-size: 13px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   padding: 8px 0;
 }
 
@@ -95,7 +95,7 @@
   margin: 0;
 }
 .rhcl-tls-page .rhcl-tls-details-grid dt {
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
 }
 .rhcl-tls-page .rhcl-tls-details-grid dd {
   margin: 0;
@@ -137,7 +137,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   margin-top: 8px;
 }
 
@@ -156,7 +156,7 @@
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   margin-bottom: 4px;
 }
 .rhcl-tls-page .rhcl-tls-rec-list {
@@ -193,7 +193,7 @@
 }
 .rhcl-tls-page .rhcl-tls-reco-detail {
   font-size: 12px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   margin-top: 4px;
   line-height: 1.4;
 }
@@ -209,7 +209,7 @@
 }
 .rhcl-tls-page .rhcl-tls-command-label {
   font-size: 11px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   text-transform: uppercase;
   letter-spacing: 0.3px;
   margin-bottom: 2px;

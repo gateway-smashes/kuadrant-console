@@ -468,7 +468,7 @@ const SettingsPage: React.FC = () => {
                   ))}
               </Tbody>
             </Table>
-            <div style={{ fontSize: 11, color: 'var(--pf-v5-global--Color--200)', marginTop: 6 }}>
+            <div style={{ fontSize: 11, color: 'var(--pf-t--global--text--color--subtle)', marginTop: 6 }}>
               {t('cost = (calls ÷ 1000) × per-1K-calls + (tokens ÷ 1000) × per-1K-tokens, per tier')}
             </div>
           </div>
@@ -535,7 +535,7 @@ const SettingsPage: React.FC = () => {
               <FlexItem><Icon size="lg"><CogIcon /></Icon></FlexItem>
               <FlexItem>
                 <Title headingLevel="h1">{t('Plugin Configuration')}</Title>
-                <div style={{ fontSize: 13, color: 'var(--pf-v5-global--Color--200)' }}>
+                <div style={{ fontSize: 13, color: 'var(--pf-t--global--text--color--subtle)' }}>
                   {t('Runtime status and dependency validation.')}
                 </div>
               </FlexItem>
@@ -544,7 +544,7 @@ const SettingsPage: React.FC = () => {
           <FlexItem>
             <Flex alignItems={{ default: 'alignItemsCenter' }} spaceItems={{ default: 'spaceItemsSm' }}>
               <FlexItem>
-                <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                   {t('Last validation: {{when}}', { when: relTime(validatedAt) })}
                 </span>
               </FlexItem>
@@ -605,7 +605,7 @@ const SettingsPage: React.FC = () => {
               <CardBody>
                 <div className="rhcl-kpi-label">{t('Configuration')}</div>
                 <div style={{ marginTop: 8 }}><StatusBadge state={overall} label={overallLabel(t, overall)} /></div>
-                <div style={{ marginTop: 8, fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                <div style={{ marginTop: 8, fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                   {t('Last validated {{when}}', { when: relTime(validatedAt) })}
                 </div>
               </CardBody>
@@ -642,7 +642,7 @@ const SettingsPage: React.FC = () => {
                     </Flex>
                   </FlexItem>
                   <FlexItem>
-                    <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>{relTime(c.at)}</span>
+                    <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>{relTime(c.at)}</span>
                   </FlexItem>
                   <FlexItem>{c.action ? <ActionButton action={c.action} variant="link" /> : <span style={{ width: 60, display: 'inline-block' }} />}</FlexItem>
                 </Flex>
@@ -663,12 +663,12 @@ const SettingsPage: React.FC = () => {
                   <Flex direction={{ default: 'column' }} spaceItems={{ default: 'spaceItemsSm' }} style={{ height: '100%' }}>
                     <FlexItem>
                       <Flex alignItems={{ default: 'alignItemsCenter' }} spaceItems={{ default: 'spaceItemsSm' }}>
-                        <FlexItem><Icon size="lg" style={{ color: 'var(--pf-v5-global--primary-color--100)' }}>{qa.icon}</Icon></FlexItem>
+                        <FlexItem><Icon size="lg" style={{ color: 'var(--pf-t--global--color--brand--default)' }}>{qa.icon}</Icon></FlexItem>
                         <FlexItem><strong>{qa.title}</strong></FlexItem>
                       </Flex>
                     </FlexItem>
                     <FlexItem flex={{ default: 'flex_1' }}>
-                      <span style={{ fontSize: 13, color: 'var(--pf-v5-global--Color--200)' }}>{qa.description}</span>
+                      <span style={{ fontSize: 13, color: 'var(--pf-t--global--text--color--subtle)' }}>{qa.description}</span>
                     </FlexItem>
                     <FlexItem>
                       <ActionButton
@@ -877,18 +877,18 @@ const KpiCard: React.FC<{ label: string; value: React.ReactNode; hint?: string; 
 }) => {
   const color =
     accent === 'green'
-      ? 'var(--pf-v5-global--success-color--100)'
+      ? 'var(--pf-t--global--color--status--success--default)'
       : accent === 'gold'
-      ? 'var(--pf-v5-global--warning-color--100)'
+      ? 'var(--pf-t--global--color--status--warning--default)'
       : accent === 'red'
-      ? 'var(--pf-v5-global--danger-color--100)'
+      ? 'var(--pf-t--global--color--status--danger--default)'
       : undefined;
   return (
     <Card className="rhcl-ops-card" isFullHeight>
       <CardBody>
         <div className="rhcl-kpi-label">{label}</div>
         <div className="rhcl-kpi-value" style={{ color, marginTop: 6 }}>{value}</div>
-        {hint && <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)', marginTop: 4 }}>{hint}</div>}
+        {hint && <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)', marginTop: 4 }}>{hint}</div>}
       </CardBody>
     </Card>
   );
@@ -897,7 +897,7 @@ const KpiCard: React.FC<{ label: string; value: React.ReactNode; hint?: string; 
 const SectionHeading: React.FC<{ title: string; subtitle?: string }> = ({ title, subtitle }) => (
   <div style={{ marginBottom: 12 }}>
     <Title headingLevel="h2" size="lg">{title}</Title>
-    {subtitle && <div style={{ fontSize: 13, color: 'var(--pf-v5-global--Color--200)', marginTop: 2 }}>{subtitle}</div>}
+    {subtitle && <div style={{ fontSize: 13, color: 'var(--pf-t--global--text--color--subtle)', marginTop: 2 }}>{subtitle}</div>}
   </div>
 );
 
@@ -998,10 +998,10 @@ const tierColor = (tier: string): 'yellow' | 'grey' | 'orange' | 'blue' | 'red' 
 
 const codeOrDefault = (v: string | undefined, dflt: string): React.ReactNode =>
   v?.trim() ? <code>{v}</code> : (
-    <span style={{ color: 'var(--pf-v5-global--Color--200)' }}><code>{dflt}</code> ({'default'})</span>
+    <span style={{ color: 'var(--pf-t--global--text--color--subtle)' }}><code>{dflt}</code> ({'default'})</span>
   );
 
 const codeOrDash = (v: string | undefined): React.ReactNode =>
-  v?.trim() ? <code style={{ wordBreak: 'break-all' }}>{v}</code> : <span style={{ color: 'var(--pf-v5-global--Color--200)' }}>—</span>;
+  v?.trim() ? <code style={{ wordBreak: 'break-all' }}>{v}</code> : <span style={{ color: 'var(--pf-t--global--text--color--subtle)' }}>—</span>;
 
 export default SettingsPage;

@@ -39,7 +39,7 @@ export const PolicyMetricsCard: React.FC<Props> = ({
             </EmptyStateBody>
           </EmptyState>
         ) : !loaded ? (
-          <div style={{ color: 'var(--pf-v5-global--Color--200)', fontSize: 13 }}>
+          <div style={{ color: 'var(--pf-t--global--text--color--subtle)', fontSize: 13 }}>
             {t('Loading metrics…')}
           </div>
         ) : (

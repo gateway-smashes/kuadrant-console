@@ -169,7 +169,7 @@ export const Donut: React.FC<DonutProps> = ({
           dominantBaseline="central"
           style={{
             fontSize: 11,
-            fill: 'var(--pf-v5-global--Color--200)',
+            fill: 'var(--pf-t--global--text--color--subtle)',
             textTransform: 'uppercase',
             letterSpacing: 0.4,
           }}
@@ -292,7 +292,7 @@ export const Histogram: React.FC<HistogramProps> = ({
           display: 'grid',
           gridTemplateColumns: templateCols,
           fontSize: 10,
-          color: 'var(--pf-v5-global--Color--200)',
+          color: 'var(--pf-t--global--text--color--subtle)',
           textAlign: 'center',
           gap: 2,
         }}

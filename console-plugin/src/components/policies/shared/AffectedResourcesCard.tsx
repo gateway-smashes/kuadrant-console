@@ -28,10 +28,10 @@ const Counter: React.FC<{
 }> = ({ label, value, href }) => {
   const body = (
     <div style={{ textAlign: 'center' }}>
-      <div style={{ fontSize: 28, fontWeight: 700, color: 'var(--pf-v5-global--Color--100)' }}>
+      <div style={{ fontSize: 28, fontWeight: 700, color: 'var(--pf-t--global--text--color--regular)' }}>
         {value}
       </div>
-      <div style={{ fontSize: 12, textTransform: 'uppercase', color: 'var(--pf-v5-global--Color--200)' }}>
+      <div style={{ fontSize: 12, textTransform: 'uppercase', color: 'var(--pf-t--global--text--color--subtle)' }}>
         {label}
       </div>
     </div>

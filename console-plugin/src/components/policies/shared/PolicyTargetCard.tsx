@@ -83,7 +83,7 @@ export const PolicyTargetCard: React.FC<Props> = ({ targetRef, policyNamespace }
       <Card>
         <CardTitle>{t('Target Resource')}</CardTitle>
         <CardBody>
-          <span style={{ color: 'var(--pf-v5-global--Color--200)' }}>
+          <span style={{ color: 'var(--pf-t--global--text--color--subtle)' }}>
             {t('No target attached')}
           </span>
         </CardBody>
@@ -150,7 +150,7 @@ export const PolicyTargetCard: React.FC<Props> = ({ targetRef, policyNamespace }
             <DescriptionListTerm>{targetKind}</DescriptionListTerm>
             <DescriptionListDescription>
               <strong>{targetName}</strong>
-              <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+              <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                 {targetNs}
               </div>
             </DescriptionListDescription>

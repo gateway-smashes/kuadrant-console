@@ -241,7 +241,7 @@ export const DNSOverviewResolverResolution: React.FC<ResolverProps> = ({
           </EmptyState>
         ) : (
           <>
-            <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)', marginBottom: 8 }}>
+            <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)', marginBottom: 8 }}>
               Sampled against <code>{sampleHostname}</code>
             </div>
             <ul className="rhcl-dns-overview-resolver-list">
@@ -269,7 +269,7 @@ export const DNSOverviewResolverResolution: React.FC<ResolverProps> = ({
                   <li key={meta.name}>
                     <span className="rhcl-dns-overview-resolver-label">
                       {meta.name}
-                      <span style={{ color: 'var(--pf-v5-global--Color--200)', marginLeft: 6 }}>
+                      <span style={{ color: 'var(--pf-t--global--text--color--subtle)', marginLeft: 6 }}>
                         ({meta.ip})
                       </span>
                     </span>
@@ -279,7 +279,7 @@ export const DNSOverviewResolverResolution: React.FC<ResolverProps> = ({
                         size={ProgressSize.sm}
                         aria-label={`${meta.name} ${label}`}
                         measureLocation={"none" as never}
-                        style={{ ['--pf-v5-c-progress__bar--BackgroundColor' as never]: color }}
+                        style={{ ['--pf-v6-c-progress__indicator--BackgroundColor' as never]: color }}
                       />
                     </span>
                     <span style={{ fontSize: 12, color, fontWeight: 500, minWidth: 60, textAlign: 'right' }}>

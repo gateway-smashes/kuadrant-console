@@ -142,7 +142,7 @@ export const HTTPRouteStatusCard: React.FC<StatusCardProps> = ({ operational }) 
           </DescriptionListGroup>
         </DescriptionList>
         {operational.reason && (
-          <div style={{ marginTop: 8, fontSize: 13, color: 'var(--pf-v5-global--danger-color--100)' }}>
+          <div style={{ marginTop: 8, fontSize: 13, color: 'var(--pf-t--global--color--status--danger--default)' }}>
             <strong>{operational.reason}</strong>
             {operational.message ? `: ${operational.message}` : ''}
           </div>
@@ -195,7 +195,7 @@ export const HTTPRouteSecuritySummaryCard: React.FC<SecuritySummaryProps> = ({
         </Flex>
       </CardTitle>
       <CardBody>
-        <div style={{ fontSize: 13, marginBottom: 8, color: 'var(--pf-v5-global--Color--200)' }}>
+        <div style={{ fontSize: 13, marginBottom: 8, color: 'var(--pf-t--global--text--color--subtle)' }}>
           {summary.postureReason}
         </div>
         {featureRow('TLS', summary.tls)}
@@ -271,7 +271,7 @@ export const HTTPRouteTrafficSummaryCard: React.FC<TrafficSummaryProps> = ({
             )}
           </DescriptionList>
         ) : (
-          <div style={{ fontSize: 13, color: 'var(--pf-v5-global--Color--200)' }}>
+          <div style={{ fontSize: 13, color: 'var(--pf-t--global--text--color--subtle)' }}>
             <Title headingLevel="h4" style={{ marginBottom: 4 }}>Metrics unavailable</Title>
             No Prometheus data was returned for this route yet.
           </div>

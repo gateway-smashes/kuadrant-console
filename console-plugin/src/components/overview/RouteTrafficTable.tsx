@@ -64,9 +64,9 @@ export const RouteTrafficTable: React.FC<Props> = ({ rows }) => {
             {visible.map((r) => {
               const errorTone = r.errorRatePct >= 5 ? 'bad' : r.errorRatePct >= 1 ? 'warn' : 'good';
               const errorColor =
-                errorTone === 'bad' ? 'var(--pf-v5-global--danger-color--100)' :
-                errorTone === 'warn' ? 'var(--pf-v5-global--warning-color--100)' :
-                'var(--pf-v5-global--success-color--100)';
+                errorTone === 'bad' ? 'var(--pf-t--global--color--status--danger--default)' :
+                errorTone === 'warn' ? 'var(--pf-t--global--color--status--warning--default)' :
+                'var(--pf-t--global--color--status--success--default)';
               return (
                 <Tr key={r.id}>
                   <Td>
@@ -76,7 +76,7 @@ export const RouteTrafficTable: React.FC<Props> = ({ rows }) => {
                   <Td>{r.gatewayName}</Td>
                   <Td>{r.requestsPerMin.toLocaleString('en-US')}</Td>
                   <Td>
-                    <div style={{ color: 'var(--pf-v5-global--info-color--100)', width: 90 }}>
+                    <div style={{ color: 'var(--pf-t--global--color--status--info--default)', width: 90 }}>
                       <Sparkline data={r.sparkline} width={90} height={28} strokeWidth={1.25} responsive={false} />
                     </div>
                   </Td>

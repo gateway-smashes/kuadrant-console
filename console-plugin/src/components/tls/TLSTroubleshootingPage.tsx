@@ -85,7 +85,7 @@ const TLSTroubleshootingPage: React.FC = () => {
               style={{
                 marginTop: 4,
                 fontSize: 14,
-                color: 'var(--pf-v5-global--Color--200)',
+                color: 'var(--pf-t--global--text--color--subtle)',
               }}
             >
               Diagnose certificate issuance, HTTPS connectivity and Gateway TLS configuration.

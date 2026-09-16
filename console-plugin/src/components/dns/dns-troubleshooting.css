@@ -96,7 +96,7 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   font-weight: 600;
 }
 .rhcl-dns-page .rhcl-dns-step-badge {
@@ -116,12 +116,12 @@
 }
 .rhcl-dns-page .rhcl-dns-step-namespace {
   font-size: 11px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
 }
 .rhcl-dns-page .rhcl-dns-step-summary {
   font-size: 12px;
   margin: 6px 0 0;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   line-height: 1.4;
 }
 .rhcl-dns-page .rhcl-dns-step-details {
@@ -137,7 +137,7 @@
   min-width: 0;
 }
 .rhcl-dns-page .rhcl-dns-step-details dt {
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   font-weight: normal;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -155,7 +155,7 @@
   min-width: 0;
 }
 .rhcl-dns-page .rhcl-dns-step-details dd.is-muted {
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   font-style: italic;
 }
 /* Card-level long strings (hostname + resource name) get the same
@@ -239,7 +239,7 @@
 }
 .rhcl-dns-page .rhcl-dns-timeline-time {
   font-size: 12px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   text-align: right;
   padding-top: 2px;
   /* Belt-and-suspenders — never wrap the timestamp regardless of
@@ -260,7 +260,7 @@
 }
 .rhcl-dns-page .rhcl-dns-timeline-detail {
   font-size: 12px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   margin-top: 2px;
 }
 
@@ -318,7 +318,7 @@
   flex: 1 1 auto;
 }
 .rhcl-dns-page .rhcl-dns-region-count {
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   font-size: 11px;
   flex: 0 0 auto;
 }
@@ -369,7 +369,7 @@
   flex: 0 0 auto;
 }
 .rhcl-dns-page .rhcl-dns-map-legend-count {
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   font-size: 11px;
 }
 

@@ -188,7 +188,7 @@ const DNSTroubleshootingPage: React.FC = () => {
         <div className="rhcl-dns-header">
           <div className="rhcl-dns-header-left">
             <Title headingLevel="h1">{t('DNS')}</Title>
-            <div style={{ fontSize: 14, color: 'var(--pf-v5-global--Color--200)' }}>
+            <div style={{ fontSize: 14, color: 'var(--pf-t--global--text--color--subtle)' }}>
               {t('Visualize and debug DNS connectivity for your Kuadrant gateways.')}
             </div>
             <div className="rhcl-dns-hostname-picker">
@@ -252,7 +252,7 @@ const DNSTroubleshootingPage: React.FC = () => {
           {banner.icon}
           <div>
             <div style={{ fontWeight: 600 }}>{banner.title}</div>
-            <div style={{ fontSize: 13, color: 'var(--pf-v5-global--Color--200)', marginTop: 2 }}>
+            <div style={{ fontSize: 13, color: 'var(--pf-t--global--text--color--subtle)', marginTop: 2 }}>
               {banner.body}
             </div>
           </div>

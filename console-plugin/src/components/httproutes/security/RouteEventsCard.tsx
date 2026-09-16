@@ -62,7 +62,7 @@ export const RouteEventsCard: React.FC<Props> = ({ events }) => {
                   style={{
                     display: 'block',
                     padding: '8px 0',
-                    borderBottom: '1px solid var(--pf-v5-global--BorderColor--100)',
+                    borderBottom: '1px solid var(--pf-t--global--border--color--default)',
                   }}
                 >
                   <Flex
@@ -71,12 +71,12 @@ export const RouteEventsCard: React.FC<Props> = ({ events }) => {
                     spaceItems={{ default: 'spaceItemsMd' }}
                   >
                     <FlexItem flex={{ default: 'flex_1' }}>
-                      <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                      <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                         {e.occurredAt}
                       </div>
                       <div style={{ fontSize: 14, fontWeight: 500 }}>{e.title}</div>
                       {e.detail && (
-                        <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                        <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                           {e.detail}
                         </div>
                       )}

@@ -544,7 +544,7 @@ const APIProductCascadeDelete: React.FC<Props> = ({ namespace, name, isOpen, onC
                         style={{
                           marginLeft: 6,
                           fontSize: 11,
-                          color: 'var(--pf-v5-global--Color--200)',
+                          color: 'var(--pf-t--global--text--color--subtle)',
                           fontStyle: 'italic',
                         }}
                       >
@@ -566,7 +566,7 @@ const APIProductCascadeDelete: React.FC<Props> = ({ namespace, name, isOpen, onC
                     style={{
                       marginTop: 4,
                       fontSize: 11,
-                      color: 'var(--pf-v5-global--Color--200)',
+                      color: 'var(--pf-t--global--text--color--subtle)',
                     }}
                   >
                     Uncheck to keep customer keys alive — you can move them to another

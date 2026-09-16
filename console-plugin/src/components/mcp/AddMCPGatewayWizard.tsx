@@ -238,7 +238,7 @@ const GatewayStep: React.FC<{ state: McpGatewayWizardState; set: SetFn; t: TFn }
         </FormGroup>
       </>
     )}
-    <p style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+    <p style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
       {t(
         'An MCPGatewayExtension is created targeting this gateway’s "mcp" listener; the MCP controller then provisions the broker, the /mcp route and the EnvoyFilter.',
       )}
@@ -278,14 +278,14 @@ const ServerStep: React.FC<{ state: McpGatewayWizardState; set: SetFn; t: TFn }>
             placeholder="my-server-route"
           />
         </FormGroup>
-        <p style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+        <p style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
           {t(
             'The HTTPRoute must already exist and attach to the gateway’s "mcps" listener, routing to your backend MCP server.',
           )}
         </p>
       </>
     ) : (
-      <p style={{ color: 'var(--pf-v5-global--Color--200)' }}>
+      <p style={{ color: 'var(--pf-t--global--text--color--subtle)' }}>
         {t('Skip for now — register MCP servers later from the MCP Servers list.')}
       </p>
     )}
@@ -304,7 +304,7 @@ const ReviewStep: React.FC<{ resources: GeneratedMcpResource[]; t: TFn }> = ({ r
         </Label>
       ))}
     </div>
-    <div style={{ overflowX: 'auto', maxHeight: 320, overflowY: 'auto', border: '1px solid var(--pf-v5-global--BorderColor--100)', borderRadius: 8 }}>
+    <div style={{ overflowX: 'auto', maxHeight: 320, overflowY: 'auto', border: '1px solid var(--pf-t--global--border--color--default)', borderRadius: 8 }}>
       <pre style={{ margin: 0, padding: 14, fontSize: 12, lineHeight: 1.5 }}>
         {resources.map((r) => `---\n${dump(r.manifest)}`).join('')}
       </pre>
@@ -329,9 +329,9 @@ const CreateSummary: React.FC<{ results: CreateResult[]; error: string | null; t
       {results.map((r) => (
         <div key={`${r.res.kind}/${r.res.name}`} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           {r.status === 'error' ? (
-            <ExclamationCircleIcon color="var(--pf-v5-global--danger-color--100)" />
+            <ExclamationCircleIcon color="var(--pf-t--global--color--status--danger--default)" />
           ) : (
-            <CheckCircleIcon color="var(--pf-v5-global--success-color--100)" />
+            <CheckCircleIcon color="var(--pf-t--global--color--status--success--default)" />
           )}
           <span style={{ fontFamily: 'monospace', fontSize: 13 }}>
             {r.res.kind} · {r.res.name}
@@ -339,11 +339,11 @@ const CreateSummary: React.FC<{ results: CreateResult[]; error: string | null; t
           <Label isCompact color={r.status === 'created' ? 'green' : r.status === 'exists' ? 'grey' : 'red'}>
             {t(r.status)}
           </Label>
-          {r.message && <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>{r.message}</span>}
+          {r.message && <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>{r.message}</span>}
         </div>
       ))}
     </div>
-    <p style={{ marginTop: 16, fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+    <p style={{ marginTop: 16, fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
       {t('The broker and /mcp route are provisioned by the controller once the MCPGatewayExtension is Ready.')}
     </p>
   </div>

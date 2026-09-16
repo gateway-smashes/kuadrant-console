@@ -144,7 +144,7 @@ export const SecurityHeadersDeepCard: React.FC<Props> = ({
                 </Table>
               </>
             ) : (
-              <div style={{ fontSize: 13, color: 'var(--pf-v5-global--Color--200)' }}>
+              <div style={{ fontSize: 13, color: 'var(--pf-t--global--text--color--subtle)' }}>
                 Click Run check to probe security response headers for {defaultUrl}.
               </div>
             )}

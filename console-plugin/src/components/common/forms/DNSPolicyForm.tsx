@@ -212,7 +212,7 @@ const DNSPolicyForm: React.FC<Props> = ({ yaml, onChange }) => {
 
       <Alert variant="info" isInline title="Credentials Secret required">
         The Secret referenced by each provider must exist in the same namespace and carry the
-        cloud provider's DNS credentials (Route 53, Google Cloud DNS, Azure DNS). This form does
+        cloud provider&apos;s DNS credentials (Route 53, Google Cloud DNS, Azure DNS). This form does
         not create the Secret for you.
       </Alert>
     </div>

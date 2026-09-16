@@ -21,11 +21,11 @@ interface Props {
 export const TrafficMetricCard: React.FC<Props> = ({ data }) => {
   const { t } = useTranslation('plugin__kuadrant-console');
   const trendColor = data.trendIsGood
-    ? 'var(--pf-v5-global--success-color--100)'
-    : 'var(--pf-v5-global--danger-color--100)';
+    ? 'var(--pf-t--global--color--status--success--default)'
+    : 'var(--pf-t--global--color--status--danger--default)';
   const sparkColor = data.trendIsGood
-    ? 'var(--pf-v5-global--success-color--100)'
-    : 'var(--pf-v5-global--danger-color--100)';
+    ? 'var(--pf-t--global--color--status--success--default)'
+    : 'var(--pf-t--global--color--status--danger--default)';
 
   const TrendArrow = data.trendDirection === 'up' ? ArrowUpIcon : ArrowDownIcon;
   const trendText = `${data.trendDeltaPct}%`;
@@ -41,7 +41,7 @@ export const TrafficMetricCard: React.FC<Props> = ({ data }) => {
                 fontWeight: 600,
                 textTransform: 'uppercase',
                 letterSpacing: 0.4,
-                color: 'var(--pf-v5-global--Color--200)',
+                color: 'var(--pf-t--global--text--color--subtle)',
               }}
             >
               {t(data.label)}
@@ -57,7 +57,7 @@ export const TrafficMetricCard: React.FC<Props> = ({ data }) => {
                   style={{
                     fontSize: 28,
                     fontWeight: 700,
-                    color: 'var(--pf-v5-global--Color--100)',
+                    color: 'var(--pf-t--global--text--color--regular)',
                   }}
                 >
                   {data.value}

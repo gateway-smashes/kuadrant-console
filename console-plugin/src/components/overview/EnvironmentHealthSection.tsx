@@ -17,11 +17,11 @@ interface Props {
 // Map card id → icon. Keeps the card itself generic; icon assignment is a
 // pure UI concern that lives next to the section that arranges them.
 const ICONS: Record<string, React.ReactNode> = {
-  gateways: <NetworkIcon color="var(--pf-v5-global--info-color--100)" />,
-  httproutes: <RouteIcon color="var(--pf-v5-global--info-color--100)" />,
-  policies: <SecurityIcon color="var(--pf-v5-global--success-color--100)" />,
-  backends: <ServerIcon color="var(--pf-v5-global--warning-color--100)" />,
-  'api-products': <CubesIcon color="var(--pf-v5-global--info-color--100)" />,
+  gateways: <NetworkIcon color="var(--pf-t--global--color--status--info--default)" />,
+  httproutes: <RouteIcon color="var(--pf-t--global--color--status--info--default)" />,
+  policies: <SecurityIcon color="var(--pf-t--global--color--status--success--default)" />,
+  backends: <ServerIcon color="var(--pf-t--global--color--status--warning--default)" />,
+  'api-products': <CubesIcon color="var(--pf-t--global--color--status--info--default)" />,
 };
 
 /**

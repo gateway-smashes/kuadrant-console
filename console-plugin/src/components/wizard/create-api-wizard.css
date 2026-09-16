@@ -694,12 +694,12 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   padding: 0 4px;
 }
 .rhcl-wiz-backend-empty {
   font-size: 13px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   font-style: italic;
   padding: 8px 4px;
 }
@@ -733,7 +733,7 @@
   border-radius: 6px;
   border: 1px solid transparent;
   background: transparent;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   cursor: pointer;
   transition: background 120ms, color 120ms;
 }
@@ -768,7 +768,7 @@
 }
 .rhcl-wiz-backend-split {
   font-size: 12px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   padding: 6px 4px 0;
 }
 .rhcl-wiz-backend-split strong {
@@ -787,7 +787,7 @@
 }
 .rhcl-wiz-route-backends-label {
   font-size: 11px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   text-transform: uppercase;
   letter-spacing: 0.3px;
   margin-right: 4px;
@@ -801,7 +801,7 @@
   border-radius: 12px;
   border: 1px solid var(--wiz-border);
   background: transparent;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   cursor: pointer;
   transition: all 120ms;
 }

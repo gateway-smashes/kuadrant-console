@@ -52,12 +52,12 @@ const MetricStat: React.FC<{ label: string; value: string; tone?: 'good' | 'bad'
 }) => {
   const color =
     tone === 'good'
-      ? 'var(--pf-v5-global--success-color--100)'
+      ? 'var(--pf-t--global--color--status--success--default)'
       : tone === 'bad'
-      ? 'var(--pf-v5-global--danger-color--100)'
+      ? 'var(--pf-t--global--color--status--danger--default)'
       : tone === 'warn'
-      ? 'var(--pf-v5-global--warning-color--100)'
-      : 'var(--pf-v5-global--Color--100)';
+      ? 'var(--pf-t--global--color--status--warning--default)'
+      : 'var(--pf-t--global--text--color--regular)';
   return (
     <div>
       <div
@@ -65,7 +65,7 @@ const MetricStat: React.FC<{ label: string; value: string; tone?: 'good' | 'bad'
           fontSize: 11,
           fontWeight: 600,
           textTransform: 'uppercase',
-          color: 'var(--pf-v5-global--Color--200)',
+          color: 'var(--pf-t--global--text--color--subtle)',
         }}
       >
         {label}
@@ -148,7 +148,7 @@ const RateLimitPolicyDetailPage: React.FC = () => {
           <PolicyStatusCard summary={summary} />
           <PolicyConfigurationCard title={t('Rate-limit Plans')}>
             {Object.keys(limits).length === 0 ? (
-              <span style={{ color: 'var(--pf-v5-global--Color--200)' }}>
+              <span style={{ color: 'var(--pf-t--global--text--color--subtle)' }}>
                 {t('No limits declared.')}
               </span>
             ) : (

@@ -354,7 +354,7 @@ function describePolicyRow(row: PolicyRow): { scope: string | null; limit: strin
 }
 
 function DimDash() {
-  return <span style={{ color: 'var(--pf-v5-global--Color--300)' }}>—</span>;
+  return <span style={{ color: 'var(--pf-t--global--text--color--subtle)' }}>—</span>;
 }
 
 export default PolicyListPage;
