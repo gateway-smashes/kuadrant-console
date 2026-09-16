@@ -1,0 +1,96 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flight-tracker-responses
+  namespace: skylink-demo
+data:
+  positions.json: |
+    {
+      "positions": [
+        {"flightId": "SL-1042", "lat": 51.23, "lon": -14.87, "altitude": 38000, "speed": 492, "heading": 52, "updatedAt": "2026-09-15T14:32:00Z"},
+        {"flightId": "SL-2087", "lat": 42.15, "lon": -168.33, "altitude": 41000, "speed": 518, "heading": 305, "updatedAt": "2026-09-15T14:32:00Z"},
+        {"flightId": "SL-3015", "lat": 48.86, "lon": 2.35, "altitude": 0, "speed": 0, "heading": 0, "updatedAt": "2026-09-15T14:32:00Z", "note": "Holding at gate"},
+        {"flightId": "SL-4201", "lat": 25.25, "lon": 55.36, "altitude": 0, "speed": 0, "heading": 0, "updatedAt": "2026-09-15T14:32:00Z", "note": "Boarding"}
+      ]
+    }
+  status.json: |
+    {
+      "flights": [
+        {"flightId": "SL-1042", "status": "In Flight", "departedAt": "2026-09-15T08:34:00Z", "eta": "2026-09-15T20:10:00Z", "gate": "B42"},
+        {"flightId": "SL-2087", "status": "In Flight", "departedAt": "2026-09-15T11:05:00Z", "eta": "2026-09-16T14:25:00Z", "gate": "A15"},
+        {"flightId": "SL-3015", "status": "Delayed", "scheduledDeparture": "2026-09-15T13:45:00Z", "newDeparture": "2026-09-15T15:30:00Z", "reason": "Weather", "gate": "C8"},
+        {"flightId": "SL-4201", "status": "Boarding", "scheduledDeparture": "2026-09-15T22:00:00Z", "gate": "D22"}
+      ]
+    }
+  locations.conf: |
+    location /positions { default_type application/json; alias /data/positions.json; }
+    location /status { default_type application/json; alias /data/status.json; }
+    location /healthz { return 200 '{"status":"ok"}'; add_header Content-Type application/json; }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flight-tracker-svc
+  namespace: skylink-demo
+  labels:
+    app: flight-tracker
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flight-tracker
+  template:
+    metadata:
+      labels:
+        app: flight-tracker
+        app.kubernetes.io/part-of: skylink-demo
+    spec:
+      containers:
+        - name: nginx
+          image: registry.access.redhat.com/ubi9/nginx-124:latest
+          command: ["nginx", "-g", "daemon off;"]
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: config
+              mountPath: /opt/app-root/etc/nginx.default.d/locations.conf
+              subPath: locations.conf
+            - name: config
+              mountPath: /data/positions.json
+              subPath: positions.json
+            - name: config
+              mountPath: /data/status.json
+              subPath: status.json
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+      volumes:
+        - name: config
+          configMap:
+            name: flight-tracker-responses
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flight-tracker-svc
+  namespace: skylink-demo
+  labels:
+    app: flight-tracker
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  selector:
+    app: flight-tracker
+  ports:
+    - port: 8080
+      targetPort: 8080

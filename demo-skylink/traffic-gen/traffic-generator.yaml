@@ -1,0 +1,123 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traffic-gen-script
+  namespace: skylink-demo
+data:
+  generate.sh: |
+    #!/bin/sh
+    # Continuous traffic generator — hits all four APIs with realistic patterns.
+    # Flight Search:  high volume (60%)
+    # Flight Tracker: high volume (25%)
+    # Booking:        moderate   (10%)
+    # Loyalty:        low        (5%)
+
+    PUBLIC_HOST="flights.skylink.example.com"
+    PARTNER_HOST="partners.skylink.example.com"
+
+    PUBLIC_GW="skylink-public-gateway.skylink-demo.svc.cluster.local"
+    PARTNER_GW="skylink-partner-gateway.skylink-demo.svc.cluster.local"
+
+    # Fall back to direct service calls if gateways are not routable
+    SEARCH_SVC="flight-search-svc.skylink-demo.svc.cluster.local:8080"
+    TRACKER_SVC="flight-tracker-svc.skylink-demo.svc.cluster.local:8080"
+    BOOKING_SVC="booking-svc.skylink-demo.svc.cluster.local:8080"
+    LOYALTY_SVC="loyalty-svc.skylink-demo.svc.cluster.local:8080"
+
+    hit() {
+      curl -sf -o /dev/null -w "%{http_code}" \
+        -H "Host: $2" \
+        --max-time 3 \
+        "http://${3}${1}" 2>/dev/null || echo "000"
+    }
+
+    hit_direct() {
+      curl -sf -o /dev/null -w "%{http_code}" \
+        --max-time 3 \
+        "http://${2}${1}" 2>/dev/null || echo "000"
+    }
+
+    SEARCH_PATHS="/flights /schedules"
+    TRACKER_PATHS="/positions /status"
+    BOOKING_PATHS="/reservations /tickets"
+    LOYALTY_PATHS="/members /redeem"
+
+    cycle=0
+    echo "[traffic-gen] Starting continuous traffic generation..."
+    while true; do
+      cycle=$((cycle + 1))
+
+      # Flight Search — 6 requests per cycle
+      for i in 1 2 3 4 5 6; do
+        for path in $SEARCH_PATHS; do
+          hit_direct "$path" "$SEARCH_SVC" > /dev/null &
+        done
+      done
+
+      # Flight Tracker — 3 requests per cycle
+      for i in 1 2 3; do
+        for path in $TRACKER_PATHS; do
+          hit_direct "$path" "$TRACKER_SVC" > /dev/null &
+        done
+      done
+
+      # Booking — 1 request per cycle
+      for path in $BOOKING_PATHS; do
+        hit_direct "$path" "$BOOKING_SVC" > /dev/null &
+      done
+
+      # Loyalty — 1 request every other cycle
+      if [ $((cycle % 2)) -eq 0 ]; then
+        for path in $LOYALTY_PATHS; do
+          hit_direct "$path" "$LOYALTY_SVC" > /dev/null &
+        done
+      fi
+
+      wait
+
+      if [ $((cycle % 60)) -eq 0 ]; then
+        echo "[traffic-gen] cycle=$cycle — still running"
+      fi
+
+      # ~2 second pause between cycles → roughly 15-20 req/s total
+      sleep 2
+    done
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traffic-generator
+  namespace: skylink-demo
+  labels:
+    app: traffic-generator
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traffic-generator
+  template:
+    metadata:
+      labels:
+        app: traffic-generator
+        app.kubernetes.io/part-of: skylink-demo
+    spec:
+      containers:
+        - name: curl
+          image: registry.access.redhat.com/ubi9/ubi-minimal:latest
+          command: ["/bin/sh", "/scripts/generate.sh"]
+          volumeMounts:
+            - name: script
+              mountPath: /scripts
+          resources:
+            requests:
+              cpu: 50m
+              memory: 32Mi
+            limits:
+              cpu: 200m
+              memory: 64Mi
+      volumes:
+        - name: script
+          configMap:
+            name: traffic-gen-script
+            defaultMode: 0755

@@ -1,0 +1,98 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flight-search-responses
+  namespace: skylink-demo
+data:
+  flights.json: |
+    {
+      "flights": [
+        {"id": "SL-1042", "origin": "JFK", "destination": "LHR", "departure": "2026-09-15T08:30:00Z", "arrival": "2026-09-15T20:15:00Z", "status": "On Time", "aircraft": "A350-900", "price": {"economy": 489, "business": 2450, "currency": "USD"}},
+        {"id": "SL-2087", "origin": "LAX", "destination": "NRT", "departure": "2026-09-15T11:00:00Z", "arrival": "2026-09-16T14:30:00Z", "status": "On Time", "aircraft": "B787-9", "price": {"economy": 712, "business": 3890, "currency": "USD"}},
+        {"id": "SL-3015", "origin": "CDG", "destination": "SFO", "departure": "2026-09-15T13:45:00Z", "arrival": "2026-09-15T16:20:00Z", "status": "Delayed", "aircraft": "A380-800", "price": {"economy": 534, "business": 2780, "currency": "USD"}},
+        {"id": "SL-4201", "origin": "DXB", "destination": "SIN", "departure": "2026-09-15T22:00:00Z", "arrival": "2026-09-16T09:45:00Z", "status": "On Time", "aircraft": "B777-300ER", "price": {"economy": 621, "business": 3100, "currency": "USD"}}
+      ],
+      "total": 4,
+      "page": 1
+    }
+  schedules.json: |
+    {
+      "schedules": [
+        {"route": "JFK-LHR", "frequency": "daily", "departures": ["08:30", "14:00", "21:30"]},
+        {"route": "LAX-NRT", "frequency": "daily", "departures": ["11:00", "23:45"]},
+        {"route": "CDG-SFO", "frequency": "daily", "departures": ["10:15", "13:45"]},
+        {"route": "DXB-SIN", "frequency": "daily", "departures": ["02:30", "15:00", "22:00"]}
+      ]
+    }
+  locations.conf: |
+    location /flights { default_type application/json; alias /data/flights.json; }
+    location /schedules { default_type application/json; alias /data/schedules.json; }
+    location /healthz { return 200 '{"status":"ok"}'; add_header Content-Type application/json; }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flight-search-svc
+  namespace: skylink-demo
+  labels:
+    app: flight-search
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flight-search
+  template:
+    metadata:
+      labels:
+        app: flight-search
+        app.kubernetes.io/part-of: skylink-demo
+    spec:
+      containers:
+        - name: nginx
+          image: registry.access.redhat.com/ubi9/nginx-124:latest
+          command: ["nginx", "-g", "daemon off;"]
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: config
+              mountPath: /opt/app-root/etc/nginx.default.d/locations.conf
+              subPath: locations.conf
+            - name: config
+              mountPath: /data/flights.json
+              subPath: flights.json
+            - name: config
+              mountPath: /data/schedules.json
+              subPath: schedules.json
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+      volumes:
+        - name: config
+          configMap:
+            name: flight-search-responses
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flight-search-svc
+  namespace: skylink-demo
+  labels:
+    app: flight-search
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  selector:
+    app: flight-search
+  ports:
+    - port: 8080
+      targetPort: 8080

@@ -1,0 +1,201 @@
+# --- Auth Policies ---
+apiVersion: kuadrant.io/v1
+kind: AuthPolicy
+metadata:
+  name: skylink-public-auth
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: skylink-public-gateway
+  defaults:
+    rules:
+      authentication:
+        api-key-auth:
+          apiKey:
+            selector:
+              matchLabels:
+                skylink.example.com/gateway: public
+            allNamespaces: false
+          credentials:
+            authorizationHeader:
+              prefix: "Bearer"
+---
+apiVersion: kuadrant.io/v1
+kind: AuthPolicy
+metadata:
+  name: skylink-partner-auth
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: skylink-partner-gateway
+  defaults:
+    rules:
+      authentication:
+        api-key-auth:
+          apiKey:
+            selector:
+              matchLabels:
+                skylink.example.com/gateway: partner
+            allNamespaces: false
+          credentials:
+            authorizationHeader:
+              prefix: "Bearer"
+---
+# --- Rate Limit Policies ---
+apiVersion: kuadrant.io/v1
+kind: RateLimitPolicy
+metadata:
+  name: skylink-public-ratelimit
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: skylink-public-gateway
+  defaults:
+    limits:
+      per-user:
+        rates:
+          - limit: 500
+            window: "60s"
+        counters:
+          - expression: auth.identity.userid
+---
+apiVersion: kuadrant.io/v1
+kind: RateLimitPolicy
+metadata:
+  name: flight-tracker-ratelimit
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: flight-tracker-route
+  defaults:
+    limits:
+      high-frequency:
+        rates:
+          - limit: 1000
+            window: "60s"
+        counters:
+          - expression: auth.identity.userid
+---
+apiVersion: kuadrant.io/v1
+kind: RateLimitPolicy
+metadata:
+  name: booking-ratelimit
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: booking-route
+  defaults:
+    limits:
+      write-operations:
+        rates:
+          - limit: 30
+            window: "60s"
+        counters:
+          - expression: auth.identity.userid
+---
+apiVersion: kuadrant.io/v1
+kind: RateLimitPolicy
+metadata:
+  name: loyalty-ratelimit
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: loyalty-route
+  defaults:
+    limits:
+      per-member:
+        rates:
+          - limit: 50
+            window: "60s"
+        counters:
+          - expression: auth.identity.userid
+---
+# --- TLS Policies ---
+apiVersion: kuadrant.io/v1
+kind: TLSPolicy
+metadata:
+  name: skylink-public-tls
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: skylink-public-gateway
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-production
+---
+apiVersion: kuadrant.io/v1
+kind: TLSPolicy
+metadata:
+  name: skylink-partner-tls
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: skylink-partner-gateway
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-production
+---
+# --- DNS Policies ---
+apiVersion: kuadrant.io/v1
+kind: DNSPolicy
+metadata:
+  name: skylink-public-dns
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: skylink-public-gateway
+  providerRefs:
+    - name: skylink-dns-credentials
+---
+apiVersion: kuadrant.io/v1
+kind: DNSPolicy
+metadata:
+  name: skylink-partner-dns
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: skylink-partner-gateway
+  providerRefs:
+    - name: skylink-dns-credentials

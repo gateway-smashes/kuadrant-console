@@ -1,0 +1,122 @@
+# --- Flight Search API keys (automatic approval) ---
+apiVersion: devportal.kuadrant.io/v1alpha1
+kind: APIKey
+metadata:
+  name: skylink-key-acme-travel
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+    skylink.example.com/gateway: public
+spec:
+  apiProductRef:
+    name: skylink-flight-search
+  planTier: Enterprise
+  requestedBy:
+    userId: acme-travel
+    email: api@acme-travel.example.com
+  useCase: "Travel aggregator — flight search integration for booking engine"
+---
+apiVersion: devportal.kuadrant.io/v1alpha1
+kind: APIKey
+metadata:
+  name: skylink-key-wanderlust
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+    skylink.example.com/gateway: public
+spec:
+  apiProductRef:
+    name: skylink-flight-search
+  planTier: Free
+  requestedBy:
+    userId: wanderlust-app
+    email: dev@wanderlust.example.com
+  useCase: "Mobile travel inspiration app with flight price comparisons"
+---
+# --- Flight Tracker API keys (manual approval) ---
+apiVersion: devportal.kuadrant.io/v1alpha1
+kind: APIKey
+metadata:
+  name: skylink-key-airport-displays
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+    skylink.example.com/gateway: public
+spec:
+  apiProductRef:
+    name: skylink-flight-tracker
+  planTier: Pro
+  requestedBy:
+    userId: jfk-ops
+    email: ops@jfk-airport.example.com
+  useCase: "Airport departure/arrival display boards — real-time position feeds"
+---
+apiVersion: devportal.kuadrant.io/v1alpha1
+kind: APIKey
+metadata:
+  name: skylink-key-flightradar
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+    skylink.example.com/gateway: public
+spec:
+  apiProductRef:
+    name: skylink-flight-tracker
+  planTier: Enterprise
+  requestedBy:
+    userId: flightradar-integration
+    email: data@flightradar.example.com
+  useCase: "Global flight tracking platform data feed"
+---
+# --- Booking API keys (manual approval, partner-only) ---
+apiVersion: devportal.kuadrant.io/v1alpha1
+kind: APIKey
+metadata:
+  name: skylink-key-travelport
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+    skylink.example.com/gateway: partner
+spec:
+  apiProductRef:
+    name: skylink-booking
+  planTier: Enterprise
+  requestedBy:
+    userId: travelport-gds
+    email: integrations@travelport.example.com
+  useCase: "GDS integration — automated booking and ticketing pipeline"
+---
+apiVersion: devportal.kuadrant.io/v1alpha1
+kind: APIKey
+metadata:
+  name: skylink-key-startup-ota
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+    skylink.example.com/gateway: partner
+spec:
+  apiProductRef:
+    name: skylink-booking
+  planTier: Pro
+  requestedBy:
+    userId: jetset-startup
+    email: cto@jetset.example.com
+  useCase: "New OTA startup — booking integration for MVP launch"
+---
+# --- Loyalty API keys (manual approval) ---
+apiVersion: devportal.kuadrant.io/v1alpha1
+kind: APIKey
+metadata:
+  name: skylink-key-hotel-partner
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+    skylink.example.com/gateway: partner
+spec:
+  apiProductRef:
+    name: skylink-loyalty
+  planTier: Pro
+  requestedBy:
+    userId: grandstay-hotels
+    email: loyalty@grandstay.example.com
+  useCase: "Hotel partner — cross-program miles earning on stays"

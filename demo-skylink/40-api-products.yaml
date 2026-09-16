@@ -1,0 +1,121 @@
+apiVersion: devportal.kuadrant.io/v1alpha1
+kind: APIProduct
+metadata:
+  name: skylink-flight-search
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  displayName: "Flight Search API"
+  description: "Search flights, routes, and schedules across the SkyLink global network. Real-time availability and pricing for 200+ destinations."
+  version: "2.1.0"
+  tags:
+    - flights
+    - search
+    - public
+    - rest
+  publishStatus: Published
+  approvalMode: automatic
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: flight-search-route
+    namespace: skylink-demo
+  documentation:
+    url: "https://docs.skylink.example.com/flight-search"
+    swaggerUI: "https://flights.skylink.example.com/swagger-ui"
+    gitRepository: "https://github.com/example/skylink-flight-search"
+  contact:
+    team: "Public API Team"
+    email: "api-team@skylink.example.com"
+    url: "https://teams.skylink.example.com/public-api"
+---
+apiVersion: devportal.kuadrant.io/v1alpha1
+kind: APIProduct
+metadata:
+  name: skylink-flight-tracker
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  displayName: "Flight Tracker API"
+  description: "Real-time flight tracking with position, altitude, speed, and ETA updates. Powers airport displays and mobile apps."
+  version: "3.0.1"
+  tags:
+    - tracking
+    - real-time
+    - public
+    - rest
+  publishStatus: Published
+  approvalMode: manual
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: flight-tracker-route
+    namespace: skylink-demo
+  documentation:
+    url: "https://docs.skylink.example.com/tracker"
+    swaggerUI: "https://flights.skylink.example.com/tracker/swagger-ui"
+  contact:
+    team: "Ops & Tracking"
+    email: "ops@skylink.example.com"
+---
+apiVersion: devportal.kuadrant.io/v1alpha1
+kind: APIProduct
+metadata:
+  name: skylink-booking
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  displayName: "Booking API"
+  description: "Create and manage flight reservations, issue e-tickets, and process seat assignments. Partner-only access."
+  version: "1.4.0"
+  tags:
+    - booking
+    - partner
+    - transactional
+    - rest
+  publishStatus: Published
+  approvalMode: manual
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: booking-route
+    namespace: skylink-demo
+  documentation:
+    url: "https://docs.skylink.example.com/booking"
+    swaggerUI: "https://partners.skylink.example.com/booking/swagger-ui"
+    gitRepository: "https://github.com/example/skylink-booking"
+  contact:
+    team: "Partner Integration"
+    email: "partners@skylink.example.com"
+    url: "https://teams.skylink.example.com/partner-integration"
+---
+apiVersion: devportal.kuadrant.io/v1alpha1
+kind: APIProduct
+metadata:
+  name: skylink-loyalty
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  displayName: "SkyMiles Loyalty API"
+  description: "Frequent flyer program management — member tiers, miles balance, and redemption options. Partner-only."
+  version: "1.0.0"
+  tags:
+    - loyalty
+    - partner
+    - miles
+  publishStatus: Draft
+  approvalMode: manual
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: loyalty-route
+    namespace: skylink-demo
+  documentation:
+    url: "https://docs.skylink.example.com/loyalty"
+  contact:
+    team: "Loyalty Program"
+    email: "loyalty@skylink.example.com"
