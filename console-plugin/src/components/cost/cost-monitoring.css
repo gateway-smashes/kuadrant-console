@@ -402,16 +402,9 @@
 .rhcl-cost-root .rhcl-section-card .pf-v6-c-table > tbody,
 .rhcl-cost-root .rhcl-section-card .pf-v6-c-table tr,
 .rhcl-cost-root .rhcl-section-card .pf-v6-c-table th,
-.rhcl-cost-root .rhcl-section-card .pf-v6-c-table td,
-.rhcl-cost-root .rhcl-section-card .pf-v5-c-table,
-.rhcl-cost-root .rhcl-section-card .pf-v5-c-table > thead,
-.rhcl-cost-root .rhcl-section-card .pf-v5-c-table > tbody,
-.rhcl-cost-root .rhcl-section-card .pf-v5-c-table tr,
-.rhcl-cost-root .rhcl-section-card .pf-v5-c-table th,
-.rhcl-cost-root .rhcl-section-card .pf-v5-c-table td {
+.rhcl-cost-root .rhcl-section-card .pf-v6-c-table td {
   background-color: transparent !important;
   --pf-v6-c-table--BackgroundColor: transparent !important;
-  --pf-v5-c-table--BackgroundColor: transparent !important;
 }
 .rhcl-cost-root .rhcl-section-card .pf-v6-c-table tbody tr {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -481,8 +474,7 @@
  * look on that page. The cost page is unaffected (it uses
  * `.rhcl-cost-root`, which never loads plugin-glass.css).
  */
-.rhcl-plugin-root .pf-v6-c-card.rhcl-kpi-card.pf-m-plain,
-.rhcl-plugin-root .pf-v5-c-card.rhcl-kpi-card.pf-m-plain {
+.rhcl-plugin-root .pf-v6-c-card.rhcl-kpi-card.pf-m-plain {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 70%),
     var(--pf-t--global--background--color--floating--default) !important;
@@ -495,8 +487,7 @@
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
-.rhcl-plugin-root .pf-v6-c-card.rhcl-kpi-card.pf-m-plain:hover,
-.rhcl-plugin-root .pf-v5-c-card.rhcl-kpi-card.pf-m-plain:hover {
+.rhcl-plugin-root .pf-v6-c-card.rhcl-kpi-card.pf-m-plain:hover {
   transform: translateY(-3px);
   border-color: var(--rhcl-accent-from, var(--pf-t--global--color--brand--default)) !important;
 }

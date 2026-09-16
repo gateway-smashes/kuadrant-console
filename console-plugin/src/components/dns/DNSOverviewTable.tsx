@@ -111,7 +111,7 @@ const FilterSelect: React.FC<{
           isExpanded={isOpen}
           style={{ minWidth: 160 }}
         >
-          <span style={{ color: 'var(--pf-v5-global--Color--200)', marginRight: 6 }}>
+          <span style={{ color: 'var(--pf-t--global--text--color--subtle)', marginRight: 6 }}>
             {label}:
           </span>
           {value ?? 'All'}
@@ -423,7 +423,7 @@ const DNSOverviewTable: React.FC<Props> = ({
                               size={ProgressSize.sm}
                               aria-label={`Propagation ${r.propagationPct}%`}
                               measureLocation={"none" as never}
-                              style={{ ['--pf-v5-c-progress__bar--BackgroundColor' as never]: propColor }}
+                              style={{ ['--pf-v6-c-progress__indicator--BackgroundColor' as never]: propColor }}
                             />
                           </span>
                         </span>
@@ -444,7 +444,7 @@ const DNSOverviewTable: React.FC<Props> = ({
                       </Td>
                       <Td>
                         <Tooltip content={r.lastCheckedIso ? new Date(r.lastCheckedIso).toLocaleString() : 'never'}>
-                          <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                          <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                             {relAgo(r.lastCheckedIso)}
                           </span>
                         </Tooltip>

@@ -30,7 +30,7 @@ export const TrafficOverviewSection: React.FC<Props> = ({
       <CardTitle>
         <span style={{ fontSize: 16 }}>
           {t('Traffic Overview')}{' '}
-          <span style={{ color: 'var(--pf-v5-global--Color--200)', fontWeight: 400 }}>
+          <span style={{ color: 'var(--pf-t--global--text--color--subtle)', fontWeight: 400 }}>
             {label}
           </span>
         </span>

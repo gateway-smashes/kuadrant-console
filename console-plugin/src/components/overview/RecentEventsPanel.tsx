@@ -70,7 +70,7 @@ export const RecentEventsPanel: React.FC<Props> = ({ events }) => {
                   padding: '8px 0',
                   color: 'inherit',
                   textDecoration: 'none',
-                  borderBottom: '1px solid var(--pf-v5-global--BorderColor--100)',
+                  borderBottom: '1px solid var(--pf-t--global--border--color--default)',
                 }}
               >
                 <Flex
@@ -79,13 +79,13 @@ export const RecentEventsPanel: React.FC<Props> = ({ events }) => {
                   spaceItems={{ default: 'spaceItemsMd' }}
                 >
                   <FlexItem flex={{ default: 'flex_1' }}>
-                    <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                    <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                       {e.occurredAt}
                     </div>
-                    <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--pf-v5-global--Color--100)' }}>
+                    <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--pf-t--global--text--color--regular)' }}>
                       {e.title}
                     </div>
-                    <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                    <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                       {e.detail}
                     </div>
                   </FlexItem>

@@ -199,7 +199,7 @@ const DNSDiagnosisPanel: React.FC<Props> = ({ flow }) => {
             <CheckCircleIcon />
             <strong>DNS is healthy</strong>
           </div>
-          <p style={{ marginTop: 8, fontSize: 13, color: 'var(--pf-v5-global--Color--200)' }}>
+          <p style={{ marginTop: 8, fontSize: 13, color: 'var(--pf-t--global--text--color--subtle)' }}>
             All checks passed. Records exist at the provider and public resolvers return the
             expected IP.
           </p>
@@ -216,7 +216,7 @@ const DNSDiagnosisPanel: React.FC<Props> = ({ flow }) => {
           <ExclamationCircleIcon style={{ color: 'var(--pf-t--global--color--status--danger--default)' }} />
           <div>
             <div style={{ fontWeight: 600 }}>{diagnosis.headline}</div>
-            <div style={{ fontSize: 13, color: 'var(--pf-v5-global--Color--200)', marginTop: 4 }}>
+            <div style={{ fontSize: 13, color: 'var(--pf-t--global--text--color--subtle)', marginTop: 4 }}>
               {diagnosis.body}
             </div>
           </div>
@@ -314,7 +314,7 @@ const DNSDiagnosisPanel: React.FC<Props> = ({ flow }) => {
           </div>
         </Content>
 
-        <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+        <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
           <ClockIcon /> Estimated propagation window: 2–15 minutes typical for TTL 60s records.
         </div>
       </CardBody>

@@ -24,11 +24,11 @@ interface Props {
 const HealthBadge: React.FC<{ health: GatewayOpData['health'] }> = ({ health }) => {
   const { t } = useTranslation('plugin__kuadrant-console');
   const map = {
-    healthy: { color: 'var(--pf-v5-global--success-color--100)', label: t('Healthy'), icon: <CheckCircleIcon aria-hidden="true" /> },
-    warning: { color: 'var(--pf-v5-global--warning-color--100)', label: t('Warning'), icon: <ExclamationTriangleIcon aria-hidden="true" /> },
-    critical: { color: 'var(--pf-v5-global--danger-color--100)', label: t('Degraded'), icon: <ExclamationCircleIcon aria-hidden="true" /> },
-    info: { color: 'var(--pf-v5-global--info-color--100)', label: t('Info'), icon: <CheckCircleIcon aria-hidden="true" /> },
-    accepted: { color: 'var(--pf-v5-global--info-color--100)', label: t('Accepted'), icon: <CheckCircleIcon aria-hidden="true" /> },
+    healthy: { color: 'var(--pf-t--global--color--status--success--default)', label: t('Healthy'), icon: <CheckCircleIcon aria-hidden="true" /> },
+    warning: { color: 'var(--pf-t--global--color--status--warning--default)', label: t('Warning'), icon: <ExclamationTriangleIcon aria-hidden="true" /> },
+    critical: { color: 'var(--pf-t--global--color--status--danger--default)', label: t('Degraded'), icon: <ExclamationCircleIcon aria-hidden="true" /> },
+    info: { color: 'var(--pf-t--global--color--status--info--default)', label: t('Info'), icon: <CheckCircleIcon aria-hidden="true" /> },
+    accepted: { color: 'var(--pf-t--global--color--status--info--default)', label: t('Accepted'), icon: <CheckCircleIcon aria-hidden="true" /> },
   };
   const { color, label, icon } = map[health];
   return (
@@ -43,9 +43,9 @@ const Metric: React.FC<{ label: string; value: string; tone?: 'good' | 'bad' | '
   label, value, tone = 'neutral',
 }) => {
   const color =
-    tone === 'good' ? 'var(--pf-v5-global--success-color--100)' :
-    tone === 'bad' ? 'var(--pf-v5-global--danger-color--100)' :
-    'var(--pf-v5-global--Color--100)';
+    tone === 'good' ? 'var(--pf-t--global--color--status--success--default)' :
+    tone === 'bad' ? 'var(--pf-t--global--color--status--danger--default)' :
+    'var(--pf-t--global--text--color--regular)';
   return (
     <div style={{ minWidth: 0 }}>
       <div
@@ -54,7 +54,7 @@ const Metric: React.FC<{ label: string; value: string; tone?: 'good' | 'bad' | '
           fontWeight: 600,
           textTransform: 'uppercase',
           letterSpacing: 0.4,
-          color: 'var(--pf-v5-global--Color--200)',
+          color: 'var(--pf-t--global--text--color--subtle)',
           whiteSpace: 'nowrap',
         }}
       >
@@ -102,7 +102,7 @@ export const GatewayOperationalCards: React.FC<Props> = ({ gateways }) => {
                     style={{
                       padding: 12,
                       borderRadius: 6,
-                      border: '1px solid var(--pf-v5-global--BorderColor--100)',
+                      border: '1px solid var(--pf-t--global--border--color--default)',
                     }}
                   >
                     <Flex
@@ -115,7 +115,7 @@ export const GatewayOperationalCards: React.FC<Props> = ({ gateways }) => {
                           spaceItems={{ default: 'spaceItemsSm' }}
                         >
                           <FlexItem>
-                            <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--pf-v5-global--Color--100)' }}>
+                            <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--pf-t--global--text--color--regular)' }}>
                               {gw.name}
                             </div>
                           </FlexItem>
@@ -125,7 +125,7 @@ export const GatewayOperationalCards: React.FC<Props> = ({ gateways }) => {
                         </Flex>
                       </FlexItem>
                       <FlexItem>
-                        <AngleRightIcon color="var(--pf-v5-global--Color--200)" aria-hidden="true" />
+                        <AngleRightIcon color="var(--pf-t--global--text--color--subtle)" aria-hidden="true" />
                       </FlexItem>
                     </Flex>
                     <div

@@ -64,7 +64,7 @@ export const ListCardFooter: React.FC<{ shown: number; total: number }> = ({ sho
         marginTop: 8,
         textAlign: 'right',
         fontSize: 12,
-        color: 'var(--pf-v5-global--Color--200)',
+        color: 'var(--pf-t--global--text--color--subtle)',
       }}
     >
       {t('Showing {{shown}} of {{total}}', { shown, total })}

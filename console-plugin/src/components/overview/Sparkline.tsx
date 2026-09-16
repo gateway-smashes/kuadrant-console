@@ -19,9 +19,9 @@ interface SparklineProps {
  * the given box. No deps on @patternfly/react-charts (which is much heavier
  * and overkill for a 30-point trend indicator).
  *
- * Color defaults to currentColor so the parent can theme it via PF status
- * classes (e.g. pf-v5-u-color-success-100 on a wrapping span) without us
- * having to know about the theme here.
+ * Color defaults to currentColor so the parent can theme it via a status
+ * color on a wrapping span (e.g. color: var(--pf-t--global--color--status--success--default))
+ * without us having to know about the theme here.
  */
 export const Sparkline: React.FC<SparklineProps> = ({
   data,

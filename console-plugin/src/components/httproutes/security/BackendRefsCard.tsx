@@ -81,7 +81,7 @@ export const BackendRefsCard: React.FC<Props> = ({ route }) => {
       <CardTitle>Backend References</CardTitle>
       <CardBody>
         {rows.length === 0 ? (
-          <div style={{ fontSize: 13, color: 'var(--pf-v5-global--Color--200)' }}>
+          <div style={{ fontSize: 13, color: 'var(--pf-t--global--text--color--subtle)' }}>
             This HTTPRoute defines no rules.
           </div>
         ) : (

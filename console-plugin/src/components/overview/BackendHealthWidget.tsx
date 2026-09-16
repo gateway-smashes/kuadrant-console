@@ -40,9 +40,9 @@ const Donut: React.FC<{ healthy: number; warning: number; critical: number }> = 
   const cy = size / 2;
   const total = healthy + warning + critical || 1;
   const segments = [
-    { value: healthy, color: 'var(--pf-v5-global--success-color--100)' },
-    { value: warning, color: 'var(--pf-v5-global--warning-color--100)' },
-    { value: critical, color: 'var(--pf-v5-global--danger-color--100)' },
+    { value: healthy, color: 'var(--pf-t--global--color--status--success--default)' },
+    { value: warning, color: 'var(--pf-t--global--color--status--warning--default)' },
+    { value: critical, color: 'var(--pf-t--global--color--status--danger--default)' },
   ];
   let angleAcc = -90; // start at 12 o'clock
   const arcs = segments
@@ -71,7 +71,7 @@ const Donut: React.FC<{ healthy: number; warning: number; critical: number }> = 
     });
   return (
     <svg width={size} height={size} aria-hidden="true">
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--pf-v5-global--BorderColor--100)" strokeWidth={12} />
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--pf-t--global--border--color--default)" strokeWidth={12} />
       {arcs}
       <text
         x={cx}
@@ -79,7 +79,7 @@ const Donut: React.FC<{ healthy: number; warning: number; critical: number }> = 
         textAnchor="middle"
         fontSize={20}
         fontWeight={700}
-        fill="var(--pf-v5-global--Color--100)"
+        fill="var(--pf-t--global--text--color--regular)"
       >
         {total}
       </text>
@@ -88,7 +88,7 @@ const Donut: React.FC<{ healthy: number; warning: number; critical: number }> = 
         y={cy + 22}
         textAnchor="middle"
         fontSize={10}
-        fill="var(--pf-v5-global--Color--200)"
+        fill="var(--pf-t--global--text--color--subtle)"
       >
         {t('Total')}
       </text>
@@ -97,11 +97,11 @@ const Donut: React.FC<{ healthy: number; warning: number; critical: number }> = 
 };
 
 const HEALTH_ICON: Record<HealthSeverity, React.ReactNode> = {
-  healthy: <CheckCircleIcon color="var(--pf-v5-global--success-color--100)" aria-hidden="true" />,
-  warning: <ExclamationTriangleIcon color="var(--pf-v5-global--warning-color--100)" aria-hidden="true" />,
-  critical: <ExclamationCircleIcon color="var(--pf-v5-global--danger-color--100)" aria-hidden="true" />,
-  info: <CheckCircleIcon color="var(--pf-v5-global--info-color--100)" aria-hidden="true" />,
-  accepted: <CheckCircleIcon color="var(--pf-v5-global--info-color--100)" aria-hidden="true" />,
+  healthy: <CheckCircleIcon color="var(--pf-t--global--color--status--success--default)" aria-hidden="true" />,
+  warning: <ExclamationTriangleIcon color="var(--pf-t--global--color--status--warning--default)" aria-hidden="true" />,
+  critical: <ExclamationCircleIcon color="var(--pf-t--global--color--status--danger--default)" aria-hidden="true" />,
+  info: <CheckCircleIcon color="var(--pf-t--global--color--status--info--default)" aria-hidden="true" />,
+  accepted: <CheckCircleIcon color="var(--pf-t--global--color--status--info--default)" aria-hidden="true" />,
 };
 
 export const BackendHealthWidget: React.FC<Props> = ({ rows }) => {
@@ -163,20 +163,20 @@ export const BackendHealthWidget: React.FC<Props> = ({ rows }) => {
               <FlexItem>
                 <Flex direction={{ default: 'column' }} spaceItems={{ default: 'spaceItemsXs' }}>
                   <FlexItem>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
-                      <span style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--pf-v5-global--success-color--100)' }} />
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
+                      <span style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--pf-t--global--color--status--success--default)' }} />
                       {t('{{count}} Healthy', { count: counts.h })}
                     </span>
                   </FlexItem>
                   <FlexItem>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
-                      <span style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--pf-v5-global--warning-color--100)' }} />
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
+                      <span style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--pf-t--global--color--status--warning--default)' }} />
                       {t('{{count}} Warning', { count: counts.w })}
                     </span>
                   </FlexItem>
                   <FlexItem>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
-                      <span style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--pf-v5-global--danger-color--100)' }} />
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
+                      <span style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--pf-t--global--color--status--danger--default)' }} />
                       {t('{{count}} Down', { count: counts.c })}
                     </span>
                   </FlexItem>
@@ -211,7 +211,7 @@ export const BackendHealthWidget: React.FC<Props> = ({ rows }) => {
                     </Td>
                     <Td>{r.requestsPerMin.toLocaleString('en-US')}</Td>
                     <Td>
-                      <div style={{ color: 'var(--pf-v5-global--info-color--100)', width: 80 }}>
+                      <div style={{ color: 'var(--pf-t--global--color--status--info--default)', width: 80 }}>
                         <Sparkline data={r.sparkline} width={80} height={24} strokeWidth={1.25} responsive={false} />
                       </div>
                     </Td>

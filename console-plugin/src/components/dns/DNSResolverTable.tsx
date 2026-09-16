@@ -104,7 +104,7 @@ const ResolverRows: React.FC<{ rows: DnsResolver[] }> = ({ rows }) => (
           <Td><StatusChip r={r} /></Td>
           <Td>{r.latencyMs != null ? `${r.latencyMs} ms` : '—'}</Td>
           <Td>
-            <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+            <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
               {r.lastCheckedIso ? new Date(r.lastCheckedIso).toLocaleTimeString() : '—'}
             </span>
           </Td>
@@ -128,7 +128,7 @@ const DNSResolverTable: React.FC<Props> = ({ prober, hostname, isMultiSite }) =>
           >
             <EmptyStateBody>
               The browser has no DNS API, so cross-resolver probing has to run cluster-side. The
-              plugin's own repo ships a small Quarkus companion (<code>dns-prober/</code>) that
+              plugin&apos;s own repo ships a small Quarkus companion (<code>dns-prober/</code>) that
               answers <code>POST /api/probe</code>. Once installed, set{' '}
               <code>dnsProberUrl</code> on the <code>kuadrant-console-config</code> ConfigMap
               and this table starts showing live per-resolver results for hostname{' '}

@@ -78,7 +78,7 @@ const DNSDiagnosticsTable: React.FC<Props> = ({ checks }) => (
                 </span>
               </Td>
               <Td>
-                <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                   {c.details || '—'}
                 </span>
               </Td>

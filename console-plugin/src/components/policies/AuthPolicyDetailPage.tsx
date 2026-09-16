@@ -63,7 +63,7 @@ const AuthRulesList: React.FC<{ rules: Array<{ name: string; rule: AuthRule }> }
   const { t } = useTranslation('plugin__kuadrant-console');
   if (rules.length === 0) {
     return (
-      <span style={{ color: 'var(--pf-v5-global--Color--200)' }}>
+      <span style={{ color: 'var(--pf-t--global--text--color--subtle)' }}>
         {t('No authentication rules declared.')}
       </span>
     );
@@ -91,8 +91,8 @@ const AuthRulesList: React.FC<{ rules: Array<{ name: string; rule: AuthRule }> }
               style={{
                 padding: 12,
                 borderRadius: 6,
-                backgroundColor: 'var(--pf-v5-global--BackgroundColor--200)',
-                border: '1px solid var(--pf-v5-global--BorderColor--100)',
+                backgroundColor: 'var(--pf-t--global--background--color--secondary--default)',
+                border: '1px solid var(--pf-t--global--border--color--default)',
               }}
             >
               <Flex
@@ -111,12 +111,12 @@ const AuthRulesList: React.FC<{ rules: Array<{ name: string; rule: AuthRule }> }
                 ))}
               </Flex>
               {source && (
-                <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)', marginTop: 4 }}>
+                <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)', marginTop: 4 }}>
                   {t('Credential source')}: <code>{source}</code>
                 </div>
               )}
               {whenPred && (
-                <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)', marginTop: 2 }}>
+                <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)', marginTop: 2 }}>
                   {t('Applies when')}: <code>{whenPred}</code>
                 </div>
               )}
@@ -240,12 +240,12 @@ const MetricStat: React.FC<{ label: string; value: string; tone?: 'good' | 'bad'
 }) => {
   const color =
     tone === 'good'
-      ? 'var(--pf-v5-global--success-color--100)'
+      ? 'var(--pf-t--global--color--status--success--default)'
       : tone === 'bad'
-      ? 'var(--pf-v5-global--danger-color--100)'
+      ? 'var(--pf-t--global--color--status--danger--default)'
       : tone === 'warn'
-      ? 'var(--pf-v5-global--warning-color--100)'
-      : 'var(--pf-v5-global--Color--100)';
+      ? 'var(--pf-t--global--color--status--warning--default)'
+      : 'var(--pf-t--global--text--color--regular)';
   return (
     <div>
       <div
@@ -253,7 +253,7 @@ const MetricStat: React.FC<{ label: string; value: string; tone?: 'good' | 'bad'
           fontSize: 11,
           fontWeight: 600,
           textTransform: 'uppercase',
-          color: 'var(--pf-v5-global--Color--200)',
+          color: 'var(--pf-t--global--text--color--subtle)',
         }}
       >
         {label}

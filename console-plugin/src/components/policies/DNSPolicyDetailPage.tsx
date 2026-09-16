@@ -40,10 +40,10 @@ const MetricStat: React.FC<{ label: string; value: string; tone?: 'good' | 'warn
 }) => {
   const color =
     tone === 'good'
-      ? 'var(--pf-v5-global--success-color--100)'
+      ? 'var(--pf-t--global--color--status--success--default)'
       : tone === 'warn'
-      ? 'var(--pf-v5-global--warning-color--100)'
-      : 'var(--pf-v5-global--Color--100)';
+      ? 'var(--pf-t--global--color--status--warning--default)'
+      : 'var(--pf-t--global--text--color--regular)';
   return (
     <div>
       <div
@@ -51,7 +51,7 @@ const MetricStat: React.FC<{ label: string; value: string; tone?: 'good' | 'warn
           fontSize: 11,
           fontWeight: 600,
           textTransform: 'uppercase',
-          color: 'var(--pf-v5-global--Color--200)',
+          color: 'var(--pf-t--global--text--color--subtle)',
         }}
       >
         {label}
@@ -186,7 +186,7 @@ const DNSPolicyDetailPage: React.FC = () => {
               </GridItem>
               {metrics.rootHostnames.length > 0 && (
                 <GridItem span={12}>
-                  <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)', marginBottom: 4 }}>
+                  <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)', marginBottom: 4 }}>
                     {t('Resolved hostnames')}
                   </div>
                   <div>

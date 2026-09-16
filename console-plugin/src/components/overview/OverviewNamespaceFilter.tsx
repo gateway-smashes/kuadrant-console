@@ -58,7 +58,7 @@ const OverviewNamespaceFilter: React.FC<Props> = ({ namespace, onChange }) => {
         >
           {/* Prefix helps set expectation this is a scope, not a project
               picker for the whole console. */}
-          <span style={{ color: 'var(--pf-v5-global--Color--200)', marginRight: 6 }}>
+          <span style={{ color: 'var(--pf-t--global--text--color--subtle)', marginRight: 6 }}>
             {t('Namespace:')}
           </span>
           {selectedLabel}

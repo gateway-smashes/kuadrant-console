@@ -157,7 +157,7 @@ export const PartialEnforcementBanner: React.FC<Props> = ({
                 {t('Covered by this policy ({{n}})', { n: covered.length })}
               </div>
               {covered.length === 0 ? (
-                <div style={{ color: 'var(--pf-v5-global--Color--200)' }}>—</div>
+                <div style={{ color: 'var(--pf-t--global--text--color--subtle)' }}>—</div>
               ) : (
                 <ul style={{ margin: '4px 0 8px 18px' }}>
                   {covered.map((c) => (
@@ -175,7 +175,7 @@ export const PartialEnforcementBanner: React.FC<Props> = ({
                 {t('Overshadowed by route-level policy ({{n}})', { n: overshadowed.length })}
               </div>
               {overshadowed.length === 0 ? (
-                <div style={{ color: 'var(--pf-v5-global--Color--200)' }}>—</div>
+                <div style={{ color: 'var(--pf-t--global--text--color--subtle)' }}>—</div>
               ) : (
                 <ul style={{ margin: '4px 0 0 18px' }}>
                   {overshadowed.map((o) => (

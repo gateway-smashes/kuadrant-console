@@ -160,7 +160,7 @@ const LimitCard: React.FC<{
                 </Title>
               </FlexItem>
               <FlexItem>
-                <span style={{ color: 'var(--pf-v5-global--Color--200)' }}>{t('req/min')}</span>
+                <span style={{ color: 'var(--pf-t--global--text--color--subtle)' }}>{t('req/min')}</span>
               </FlexItem>
             </Flex>
           )}
@@ -179,10 +179,10 @@ const LimitCard: React.FC<{
 
         {/* Raw rates — show ALL of them in case there are multiple */}
         {limit.rates && limit.rates.length > 0 && (
-          <div style={{ fontSize: 13, color: 'var(--pf-v5-global--Color--200)', marginBottom: 8 }}>
+          <div style={{ fontSize: 13, color: 'var(--pf-t--global--text--color--subtle)', marginBottom: 8 }}>
             {limit.rates.map((r, i) => (
               <div key={i}>
-                <strong style={{ color: 'var(--pf-v5-global--Color--100)' }}>
+                <strong style={{ color: 'var(--pf-t--global--text--color--regular)' }}>
                   {r.limit.toLocaleString()}
                 </strong>{' '}
                 {t('per')}{' '}
@@ -194,7 +194,7 @@ const LimitCard: React.FC<{
 
         {/* Equivalences — helpful sanity check ("50 rpm ≈ 72k/day, 2.1M/month"). */}
         {!unlimited && (
-          <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--300)' }}>
+          <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
             ≈ {compact(dailyEst as number)}/{t('day')} · {compact(monthlyEst as number)}/{t('month')}
           </div>
         )}
@@ -202,7 +202,7 @@ const LimitCard: React.FC<{
         {/* Predicates */}
         {limit.when && limit.when.length > 0 && (
           <div style={{ marginTop: 10 }}>
-            <div style={{ fontSize: 11, color: 'var(--pf-v5-global--Color--300)', marginBottom: 4 }}>
+            <div style={{ fontSize: 11, color: 'var(--pf-t--global--text--color--subtle)', marginBottom: 4 }}>
               {t('Applies when')}
             </div>
             <LabelGroup numLabels={3} isCompact>
@@ -223,7 +223,7 @@ const LimitCard: React.FC<{
         {/* Counter keys (when present) */}
         {limit.counters && limit.counters.length > 0 && (
           <div style={{ marginTop: 10 }}>
-            <div style={{ fontSize: 11, color: 'var(--pf-v5-global--Color--300)', marginBottom: 4 }}>
+            <div style={{ fontSize: 11, color: 'var(--pf-t--global--text--color--subtle)', marginBottom: 4 }}>
               {t('Counter keys')}
             </div>
             <LabelGroup numLabels={3} isCompact>
@@ -235,7 +235,7 @@ const LimitCard: React.FC<{
         )}
 
         {sourceLabel && (
-          <div style={{ marginTop: 12, fontSize: 11, color: 'var(--pf-v5-global--Color--300)' }}>
+          <div style={{ marginTop: 12, fontSize: 11, color: 'var(--pf-t--global--text--color--subtle)' }}>
             {t('From')}:{' '}
             {sourceHref ? <a href={sourceHref}>{sourceLabel}</a> : sourceLabel}
           </div>
@@ -259,7 +259,7 @@ const LimitRow: React.FC<{ name: string; limit: RateLimit }> = ({ name, limit })
     <Flex
       spaceItems={{ default: 'spaceItemsSm' }}
       alignItems={{ default: 'alignItemsCenter' }}
-      style={{ padding: '6px 0', borderTop: '1px solid var(--pf-v5-global--BorderColor--100)' }}
+      style={{ padding: '6px 0', borderTop: '1px solid var(--pf-t--global--border--color--default)' }}
     >
       <FlexItem style={{ minWidth: 80 }}>
         <Label color={tierLabelColor(name)} isCompact>{name}</Label>

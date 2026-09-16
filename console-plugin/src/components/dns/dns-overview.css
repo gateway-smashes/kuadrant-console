@@ -11,11 +11,11 @@
 .rhcl-dns-overview-page .rhcl-dns-overview-subtitle {
   margin-top: 4px;
   font-size: 14px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
 }
 .rhcl-dns-overview-page .rhcl-dns-overview-lastupdated {
   font-size: 12px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
 }
 
 /* --------- Panel + card look --------- */
@@ -61,7 +61,7 @@
 }
 .rhcl-dns-overview-page .rhcl-dns-overview-kpi-caption {
   font-size: 12px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   margin-bottom: 8px;
 }
 .rhcl-dns-overview-page .rhcl-dns-overview-kpi-microstats {
@@ -144,7 +144,7 @@
 /* --------- Histogram caption --------- */
 .rhcl-dns-overview-page .rhcl-dns-overview-histo-caption {
   font-size: 12px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   margin-top: 6px;
 }
 
@@ -153,7 +153,6 @@
    match the tallest sibling (usually the Recent Events list here).
    Without this, the SVG collapsed to its `min-height` (180px) and
    left a tall empty strip beneath. */
-.rhcl-dns-overview-page .rhcl-dns-overview-panel > .pf-v5-c-card__body,
 .rhcl-dns-overview-page .rhcl-dns-overview-panel > .pf-v6-c-card__body {
   display: flex;
   flex-direction: column;
@@ -216,7 +215,7 @@
 }
 .rhcl-dns-overview-page .rhcl-dns-overview-provider-pct {
   font-weight: normal;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
 }
 
 /* --------- Resolver rows --------- */
@@ -276,12 +275,12 @@
 }
 .rhcl-dns-overview-page .rhcl-dns-overview-events-detail {
   font-size: 12px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   margin-top: 2px;
   overflow-wrap: anywhere;
 }
 .rhcl-dns-overview-page .rhcl-dns-overview-events-when {
   font-size: 11px;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
   white-space: nowrap;
 }

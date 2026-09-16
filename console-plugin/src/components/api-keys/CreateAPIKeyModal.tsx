@@ -310,7 +310,7 @@ const CreateAPIKeyModal: React.FC<Props> = ({
               style={{
                 marginTop: 12,
                 fontSize: 12,
-                color: 'var(--pf-v5-global--Color--200)',
+                color: 'var(--pf-t--global--text--color--subtle)',
               }}
             >
               The key is <strong>inactive</strong> until approved on the API
@@ -356,7 +356,7 @@ const CreateAPIKeyModal: React.FC<Props> = ({
                           <strong>{p.spec?.displayName || p.metadata?.name}</strong>
                           <span
                             style={{
-                              color: 'var(--pf-v5-global--Color--200)',
+                              color: 'var(--pf-t--global--text--color--subtle)',
                               marginLeft: 6,
                               fontSize: 12,
                             }}
@@ -447,7 +447,7 @@ const CreateAPIKeyModal: React.FC<Props> = ({
               <div
                 style={{
                   fontSize: 12,
-                  color: 'var(--pf-v5-global--Color--200)',
+                  color: 'var(--pf-t--global--text--color--subtle)',
                 }}
               >
                 APIKey CR will be named{' '}

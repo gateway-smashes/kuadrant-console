@@ -334,7 +334,7 @@ const ResourceEditorModal: React.FC<ResourceEditorModalProps> = ({
               />
               {hint && (
                 <Content style={{ marginTop: 8 }}>
-                  <p style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>{hint}</p>
+                  <p style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>{hint}</p>
                 </Content>
               )}
             </div>

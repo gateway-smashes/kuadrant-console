@@ -141,7 +141,7 @@ const OverviewPage: React.FC = () => {
               style={{
                 marginTop: 4,
                 fontSize: 14,
-                color: 'var(--pf-v5-global--Color--200)',
+                color: 'var(--pf-t--global--text--color--subtle)',
               }}
             >
               {t('Real-time summary of your API gateway environment')}
@@ -210,7 +210,7 @@ const OverviewPage: React.FC = () => {
                 <span
                   style={{
                     fontSize: 12,
-                    color: 'var(--pf-v5-global--Color--200)',
+                    color: 'var(--pf-t--global--text--color--subtle)',
                   }}
                 >
                   {t('Last updated: {{when}}', { when: lastUpdatedLabel })}

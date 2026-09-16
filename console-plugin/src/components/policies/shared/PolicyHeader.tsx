@@ -141,7 +141,7 @@ export const PolicyHeader: React.FC<Props> = ({
         <div
           style={{
             fontSize: 14,
-            color: 'var(--pf-v5-global--Color--200)',
+            color: 'var(--pf-t--global--text--color--subtle)',
           }}
         >
           {t('Namespace')}: <strong>{namespace}</strong>
@@ -154,7 +154,7 @@ export const PolicyHeader: React.FC<Props> = ({
           <span
             style={{
               fontSize: 12,
-              color: 'var(--pf-v5-global--warning-color--200)',
+              color: 'var(--pf-t--global--color--status--warning--default)',
             }}
           >
             {summary.message}

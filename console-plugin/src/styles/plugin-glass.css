@@ -41,8 +41,7 @@
  * competes with the cards inside it. Tone it down so the cards do
  * the work.
  */
-.rhcl-plugin-root .pf-v6-c-page__main-section,
-.rhcl-plugin-root .pf-v5-c-page__main-section {
+.rhcl-plugin-root .pf-v6-c-page__main-section {
   background: transparent !important;
 }
 
@@ -66,8 +65,7 @@
  * top gradient). `:not(.rhcl-page-header)` is an explicit opt-out for
  * detail-page headers that render their own layout.
  */
-.rhcl-plugin-root .pf-v6-c-page__main-section:not(:first-of-type):not(.rhcl-page-header),
-.rhcl-plugin-root .pf-v5-c-page__main-section:not(:first-of-type):not(.rhcl-page-header) {
+.rhcl-plugin-root .pf-v6-c-page__main-section:not(:first-of-type):not(.rhcl-page-header) {
   background: var(--pf-t--global--background--color--floating--default) !important;
   border: 1px solid var(--pf-t--global--border--color--default) !important;
   border-radius: var(--pf-t--global--border--radius--medium) !important;
@@ -78,12 +76,11 @@
 
 /* --------- Card / glass surface ---------
  *
- * Targets PatternFly v5 + v6 Card class names. The `!important`
+ * Targets the PatternFly v6 Card class. The `!important`
  * overrides the default `--pf-v6-c-card--BackgroundColor` token
  * (which would otherwise paint the card flat).
  */
-.rhcl-plugin-root .pf-v6-c-card,
-.rhcl-plugin-root .pf-v5-c-card {
+.rhcl-plugin-root .pf-v6-c-card {
   background:
     linear-gradient(
       180deg,
@@ -105,8 +102,7 @@
     border-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.rhcl-plugin-root .pf-v6-c-card:hover,
-.rhcl-plugin-root .pf-v5-c-card:hover {
+.rhcl-plugin-root .pf-v6-c-card:hover {
   transform: translateY(-2px);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
@@ -117,16 +113,14 @@
 /* Compact / plain variants — keep them flat to avoid breaking
    intentionally subdued layouts (e.g. inline cards inside detail
    pages where the parent card already supplies the elevation). */
-.rhcl-plugin-root .pf-v6-c-card.pf-m-plain,
-.rhcl-plugin-root .pf-v5-c-card.pf-m-plain {
+.rhcl-plugin-root .pf-v6-c-card.pf-m-plain {
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-.rhcl-plugin-root .pf-v6-c-card.pf-m-plain:hover,
-.rhcl-plugin-root .pf-v5-c-card.pf-m-plain:hover {
+.rhcl-plugin-root .pf-v6-c-card.pf-m-plain:hover {
   transform: none;
   box-shadow: none !important;
 }
@@ -136,8 +130,7 @@
    The previous rule used `secondary--default`, which resolves to
    near-black on the Console dark theme and made every KPI tile inside
    a section card look like a hole punched in the page. */
-.rhcl-plugin-root .pf-v6-c-card .pf-v6-c-card,
-.rhcl-plugin-root .pf-v5-c-card .pf-v5-c-card {
+.rhcl-plugin-root .pf-v6-c-card .pf-v6-c-card {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%),
@@ -152,8 +145,7 @@
  * colour (light mode).
  */
 .rhcl-plugin-root > section:first-of-type,
-.rhcl-plugin-root .pf-v6-c-page__main-section:first-of-type,
-.rhcl-plugin-root .pf-v5-c-page__main-section:first-of-type {
+.rhcl-plugin-root .pf-v6-c-page__main-section:first-of-type {
   background: linear-gradient(
     180deg,
     var(--pf-t--global--background--color--secondary--default) 0%,
@@ -172,34 +164,25 @@
  * the header so the header/body separation stays legible.
  */
 .rhcl-plugin-root .pf-v6-c-table,
-.rhcl-plugin-root .pf-v5-c-table,
 .rhcl-plugin-root .pf-v6-c-table__thead,
-.rhcl-plugin-root .pf-v5-c-table__thead,
 .rhcl-plugin-root .pf-v6-c-table__tbody,
-.rhcl-plugin-root .pf-v5-c-table__tbody,
 .rhcl-plugin-root .pf-v6-c-table__tr,
-.rhcl-plugin-root .pf-v5-c-table__tr,
 .rhcl-plugin-root .pf-v6-c-table__th,
-.rhcl-plugin-root .pf-v5-c-table__th,
-.rhcl-plugin-root .pf-v6-c-table__td,
-.rhcl-plugin-root .pf-v5-c-table__td {
+.rhcl-plugin-root .pf-v6-c-table__td {
   background: transparent !important;
   background-color: transparent !important;
 }
 
-.rhcl-plugin-root .pf-v6-c-table__thead .pf-v6-c-table__th,
-.rhcl-plugin-root .pf-v5-c-table__thead .pf-v5-c-table__th {
+.rhcl-plugin-root .pf-v6-c-table__thead .pf-v6-c-table__th {
   border-bottom: 1px solid var(--pf-t--global--border--color--default) !important;
 }
 
-.rhcl-plugin-root .pf-v6-c-table tbody tr:hover,
-.rhcl-plugin-root .pf-v5-c-table tbody tr:hover {
+.rhcl-plugin-root .pf-v6-c-table tbody tr:hover {
   background: rgba(255, 255, 255, 0.03) !important;
 }
 
 /* --------- Labels / chips --------- */
-.rhcl-plugin-root .pf-v6-c-label,
-.rhcl-plugin-root .pf-v5-c-label {
+.rhcl-plugin-root .pf-v6-c-label {
   letter-spacing: 0.02em;
 }
 
@@ -224,5 +207,5 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--pf-v5-global--Color--200);
+  color: var(--pf-t--global--text--color--subtle);
 }

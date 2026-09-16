@@ -64,12 +64,12 @@ const MetricStat: React.FC<{ label: string; value: string; tone?: 'good' | 'bad'
 }) => {
   const color =
     tone === 'good'
-      ? 'var(--pf-v5-global--success-color--100)'
+      ? 'var(--pf-t--global--color--status--success--default)'
       : tone === 'bad'
-      ? 'var(--pf-v5-global--danger-color--100)'
+      ? 'var(--pf-t--global--color--status--danger--default)'
       : tone === 'warn'
-      ? 'var(--pf-v5-global--warning-color--100)'
-      : 'var(--pf-v5-global--Color--100)';
+      ? 'var(--pf-t--global--color--status--warning--default)'
+      : 'var(--pf-t--global--text--color--regular)';
   return (
     <div>
       <div
@@ -77,7 +77,7 @@ const MetricStat: React.FC<{ label: string; value: string; tone?: 'good' | 'bad'
           fontSize: 11,
           fontWeight: 600,
           textTransform: 'uppercase',
-          color: 'var(--pf-v5-global--Color--200)',
+          color: 'var(--pf-t--global--text--color--subtle)',
         }}
       >
         {label}
@@ -149,7 +149,7 @@ const TokenRateLimitPolicyDetailPage: React.FC = () => {
           <PolicyStatusCard summary={summary} />
           <PolicyConfigurationCard title={t('Token Buckets')}>
             {buckets.length === 0 ? (
-              <span style={{ color: 'var(--pf-v5-global--Color--200)' }}>
+              <span style={{ color: 'var(--pf-t--global--text--color--subtle)' }}>
                 {t('No buckets declared.')}
               </span>
             ) : (
@@ -160,8 +160,8 @@ const TokenRateLimitPolicyDetailPage: React.FC = () => {
                       style={{
                         padding: 12,
                         borderRadius: 6,
-                        backgroundColor: 'var(--pf-v5-global--BackgroundColor--200)',
-                        border: '1px solid var(--pf-v5-global--BorderColor--100)',
+                        backgroundColor: 'var(--pf-t--global--background--color--secondary--default)',
+                        border: '1px solid var(--pf-t--global--border--color--default)',
                       }}
                     >
                       <div style={{ fontWeight: 600, marginBottom: 8 }}>{b.name}</div>

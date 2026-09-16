@@ -25,11 +25,11 @@ interface EnvironmentHealthCardProps {
 }
 
 const severityColor: Record<HealthSeverity, string> = {
-  healthy: 'var(--pf-v5-global--success-color--100)',
-  warning: 'var(--pf-v5-global--warning-color--100)',
-  critical: 'var(--pf-v5-global--danger-color--100)',
-  info: 'var(--pf-v5-global--info-color--100)',
-  accepted: 'var(--pf-v5-global--palette--purple-300, #8476d1)',
+  healthy: 'var(--pf-t--global--color--status--success--default)',
+  warning: 'var(--pf-t--global--color--status--warning--default)',
+  critical: 'var(--pf-t--global--color--status--danger--default)',
+  info: 'var(--pf-t--global--color--status--info--default)',
+  accepted: 'var(--pf-t--global--color--nonstatus--purple--default, #8476d1)',
 };
 
 const SeverityDot: React.FC<{ severity: HealthSeverity }> = ({ severity }) => {
@@ -86,7 +86,7 @@ export const EnvironmentHealthCard: React.FC<EnvironmentHealthCardProps> = ({
                       style={{
                         fontSize: 14,
                         fontWeight: 600,
-                        color: 'var(--pf-v5-global--Color--100)',
+                        color: 'var(--pf-t--global--text--color--regular)',
                       }}
                     >
                       {t(data.title)}
@@ -101,7 +101,7 @@ export const EnvironmentHealthCard: React.FC<EnvironmentHealthCardProps> = ({
                   aria-label={t('Open all {{title}}', { title: t(data.title) })}
                 >
                   <AngleRightIcon
-                    color="var(--pf-v5-global--Color--200)"
+                    color="var(--pf-t--global--text--color--subtle)"
                     aria-hidden="true"
                   />
                 </Link>
@@ -114,7 +114,7 @@ export const EnvironmentHealthCard: React.FC<EnvironmentHealthCardProps> = ({
                 fontSize: 32,
                 fontWeight: 700,
                 lineHeight: 1.1,
-                color: 'var(--pf-v5-global--Color--100)',
+                color: 'var(--pf-t--global--text--color--regular)',
               }}
             >
               {data.total}
@@ -133,14 +133,14 @@ export const EnvironmentHealthCard: React.FC<EnvironmentHealthCardProps> = ({
                       alignItems: 'center',
                       gap: 6,
                       fontSize: 12,
-                      color: 'var(--pf-v5-global--Color--200)',
+                      color: 'var(--pf-t--global--text--color--subtle)',
                     }}
                   >
                     <SeverityDot severity={b.severity} />
                     <span>
                       <strong
                         style={{
-                          color: 'var(--pf-v5-global--Color--100)',
+                          color: 'var(--pf-t--global--text--color--regular)',
                           fontWeight: 600,
                         }}
                       >

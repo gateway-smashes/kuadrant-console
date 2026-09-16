@@ -116,7 +116,7 @@ export const PolicyImpactTable: React.FC<Props> = ({ rows }) => {
                   </Label>
                 </Td>
                 <Td>
-                  <span style={{ color: 'var(--pf-v5-global--Color--200)', fontSize: 13 }}>
+                  <span style={{ color: 'var(--pf-t--global--text--color--subtle)', fontSize: 13 }}>
                     {impactLabel(r.impact)}
                   </span>
                 </Td>

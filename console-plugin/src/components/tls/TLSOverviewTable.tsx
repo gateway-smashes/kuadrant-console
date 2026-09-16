@@ -111,7 +111,7 @@ const FilterSelect: React.FC<{
           isExpanded={isOpen}
           style={{ minWidth: 160 }}
         >
-          <span style={{ color: 'var(--pf-v5-global--Color--200)', marginRight: 6 }}>
+          <span style={{ color: 'var(--pf-t--global--text--color--subtle)', marginRight: 6 }}>
             {label}:
           </span>
           {value ?? 'All'}

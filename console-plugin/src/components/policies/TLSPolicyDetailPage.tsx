@@ -40,12 +40,12 @@ const MetricStat: React.FC<{ label: string; value: string; tone?: 'good' | 'warn
 }) => {
   const color =
     tone === 'good'
-      ? 'var(--pf-v5-global--success-color--100)'
+      ? 'var(--pf-t--global--color--status--success--default)'
       : tone === 'warn'
-      ? 'var(--pf-v5-global--warning-color--100)'
+      ? 'var(--pf-t--global--color--status--warning--default)'
       : tone === 'bad'
-      ? 'var(--pf-v5-global--danger-color--100)'
-      : 'var(--pf-v5-global--Color--100)';
+      ? 'var(--pf-t--global--color--status--danger--default)'
+      : 'var(--pf-t--global--text--color--regular)';
   return (
     <div>
       <div
@@ -53,7 +53,7 @@ const MetricStat: React.FC<{ label: string; value: string; tone?: 'good' | 'warn
           fontSize: 11,
           fontWeight: 600,
           textTransform: 'uppercase',
-          color: 'var(--pf-v5-global--Color--200)',
+          color: 'var(--pf-t--global--text--color--subtle)',
         }}
       >
         {label}
@@ -73,17 +73,17 @@ const CertificateRow: React.FC<{ cert: CertificateInfo }> = ({ cert }) => {
       : 'warn';
   const expiryColor =
     expiryTone === 'good'
-      ? 'var(--pf-v5-global--success-color--100)'
+      ? 'var(--pf-t--global--color--status--success--default)'
       : expiryTone === 'warn'
-      ? 'var(--pf-v5-global--warning-color--100)'
-      : 'var(--pf-v5-global--danger-color--100)';
+      ? 'var(--pf-t--global--color--status--warning--default)'
+      : 'var(--pf-t--global--color--status--danger--default)';
   return (
     <div
       style={{
         padding: 12,
         borderRadius: 6,
-        backgroundColor: 'var(--pf-v5-global--BackgroundColor--200)',
-        border: '1px solid var(--pf-v5-global--BorderColor--100)',
+        backgroundColor: 'var(--pf-t--global--background--color--secondary--default)',
+        border: '1px solid var(--pf-t--global--border--color--default)',
       }}
     >
       <div style={{ fontWeight: 600 }}>{cert.name}</div>
@@ -122,7 +122,7 @@ const CertificateRow: React.FC<{ cert: CertificateInfo }> = ({ cert }) => {
         </DescriptionListGroup>
       </DescriptionList>
       {cert.message && !cert.ready && (
-        <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)', marginTop: 4 }}>
+        <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)', marginTop: 4 }}>
           {cert.message}
         </div>
       )}
@@ -249,7 +249,7 @@ const TLSPolicyDetailPage: React.FC = () => {
               <GridItem span={12}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {metrics.certificates.length === 0 ? (
-                    <span style={{ color: 'var(--pf-v5-global--Color--200)' }}>
+                    <span style={{ color: 'var(--pf-t--global--text--color--subtle)' }}>
                       {t('No certificates attributed to this policy.')}
                     </span>
                   ) : (

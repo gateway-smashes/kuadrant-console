@@ -30,7 +30,7 @@ const DNSTimeline: React.FC<Props> = ({ events }) => (
     <CardTitle>Reconciliation timeline</CardTitle>
     <CardBody>
       {events.length === 0 ? (
-        <div style={{ fontSize: 13, color: 'var(--pf-v5-global--Color--200)' }}>
+        <div style={{ fontSize: 13, color: 'var(--pf-t--global--text--color--subtle)' }}>
           No recent Events for this DNSPolicy / Gateway / HTTPRoute. That usually means
           reconciliation is idle — inspect the Advanced section for raw conditions.
         </div>

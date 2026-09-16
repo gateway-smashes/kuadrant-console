@@ -63,7 +63,7 @@ export const EffectiveSecurityPolicyStack: React.FC<Props> = ({ stack }) => {
           ))}
         </Flex>
         <Divider style={{ marginTop: 16, marginBottom: 12 }} />
-        <div style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+        <div style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
           Resolution order per GEP-713:{' '}
           <Label color="blue" isCompact>Gateway overrides</Label>{' '}
           <Icon size="sm"><ArrowRightIcon /></Icon>{' '}

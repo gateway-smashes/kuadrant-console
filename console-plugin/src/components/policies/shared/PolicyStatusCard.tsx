@@ -58,7 +58,7 @@ export const PolicyStatusCard: React.FC<Props> = ({ summary }) => {
               alignItems={{ default: 'alignItemsCenter' }}
             >
               <FlexItem>
-                <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                   {t('Current status')}
                 </span>
                 <div>
@@ -68,7 +68,7 @@ export const PolicyStatusCard: React.FC<Props> = ({ summary }) => {
                 </div>
               </FlexItem>
               <FlexItem>
-                <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                   {t('Accepted')}
                 </span>
                 <div>
@@ -81,7 +81,7 @@ export const PolicyStatusCard: React.FC<Props> = ({ summary }) => {
                 </div>
               </FlexItem>
               <FlexItem>
-                <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+                <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                   {t('Enforced')}
                 </span>
                 <div>
@@ -97,7 +97,7 @@ export const PolicyStatusCard: React.FC<Props> = ({ summary }) => {
           </FlexItem>
           {summary.reason && (
             <FlexItem>
-              <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+              <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                 {t('Reason')}
               </span>
               <div style={{ fontSize: 14 }}>{summary.reason}</div>
@@ -105,7 +105,7 @@ export const PolicyStatusCard: React.FC<Props> = ({ summary }) => {
           )}
           {summary.lastTransitionTime && (
             <FlexItem>
-              <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+              <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
                 {t('Last transition')}
               </span>
               <div style={{ fontSize: 14 }}>

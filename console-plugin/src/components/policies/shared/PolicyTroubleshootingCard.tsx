@@ -53,7 +53,7 @@ export const PolicyTroubleshootingCard: React.FC<Props> = ({
           spaceItems={{ default: 'spaceItemsSm' }}
         >
           <FlexItem>
-            <ExclamationTriangleIcon color="var(--pf-v5-global--warning-color--100)" />
+            <ExclamationTriangleIcon color="var(--pf-t--global--color--status--warning--default)" />
           </FlexItem>
           <FlexItem>{t('Troubleshooting')}</FlexItem>
         </Flex>
@@ -64,7 +64,7 @@ export const PolicyTroubleshootingCard: React.FC<Props> = ({
             <div
               style={{
                 fontSize: 13,
-                color: 'var(--pf-v5-global--Color--200)',
+                color: 'var(--pf-t--global--text--color--subtle)',
                 marginBottom: 8,
               }}
             >
@@ -78,7 +78,7 @@ export const PolicyTroubleshootingCard: React.FC<Props> = ({
                     <div
                       style={{
                         fontSize: 12,
-                        color: 'var(--pf-v5-global--Color--200)',
+                        color: 'var(--pf-t--global--text--color--subtle)',
                         marginTop: 2,
                       }}
                     >
@@ -93,7 +93,7 @@ export const PolicyTroubleshootingCard: React.FC<Props> = ({
             <div
               style={{
                 fontSize: 13,
-                color: 'var(--pf-v5-global--Color--200)',
+                color: 'var(--pf-t--global--text--color--subtle)',
                 marginBottom: 4,
               }}
             >

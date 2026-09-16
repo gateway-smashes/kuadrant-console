@@ -299,11 +299,11 @@ const TokenRateLimitPolicyForm: React.FC<Props> = ({ yaml, onChange }) => {
           ))}
         </FormSelect>
         {scopeOpt?.hint && (
-          <div style={{ marginTop: 4, fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+          <div style={{ marginTop: 4, fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
             {scopeOpt.hint}
           </div>
         )}
-        <div style={{ marginTop: 6, fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+        <div style={{ marginTop: 6, fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
           The scope populates the fields below with a starting expression. Whatever ends up in
           those fields is what gets written to the CR — edit them if the preset isn&apos;t
           quite right.
@@ -347,7 +347,7 @@ const TokenRateLimitPolicyForm: React.FC<Props> = ({ yaml, onChange }) => {
               placeholder="auth.identity.userid"
               style={{ fontFamily: 'ui-monospace, Menlo, Monaco, Consolas, monospace' }}
             />
-            <div style={{ marginTop: 4, fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+            <div style={{ marginTop: 4, fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
               CEL expression Limitador reads to bucket token usage. Blank means a single shared
               token budget.
             </div>
@@ -359,7 +359,7 @@ const TokenRateLimitPolicyForm: React.FC<Props> = ({ yaml, onChange }) => {
               placeholder='request.path.startsWith("/api/v1/chat")'
               style={{ fontFamily: 'ui-monospace, Menlo, Monaco, Consolas, monospace' }}
             />
-            <div style={{ marginTop: 4, fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>
+            <div style={{ marginTop: 4, fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>
               Optional CEL gating this limit. Blank means the limit applies to every request.
             </div>
           </FormGroup>

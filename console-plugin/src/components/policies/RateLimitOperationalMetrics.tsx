@@ -243,10 +243,10 @@ function utilisationToTone(pct: number): Tone {
 }
 
 const TONE_COLOR: Record<Tone, string> = {
-  neutral: 'var(--pf-v5-global--Color--100)',
-  success: 'var(--pf-v5-global--success-color--100)',
-  warning: 'var(--pf-v5-global--warning-color--100)',
-  critical: 'var(--pf-v5-global--danger-color--100)',
+  neutral: 'var(--pf-t--global--text--color--regular)',
+  success: 'var(--pf-t--global--color--status--success--default)',
+  warning: 'var(--pf-t--global--color--status--warning--default)',
+  critical: 'var(--pf-t--global--color--status--danger--default)',
 };
 
 function Kpi({
@@ -263,7 +263,7 @@ function Kpi({
   return (
     <Card isCompact isFullHeight>
       <CardTitle style={{ paddingBottom: 4 }}>
-        <span style={{ fontSize: 12, color: 'var(--pf-v5-global--Color--200)' }}>{label}</span>
+        <span style={{ fontSize: 12, color: 'var(--pf-t--global--text--color--subtle)' }}>{label}</span>
       </CardTitle>
       <CardBody>
         <Flex direction={{ default: 'column' }} spaceItems={{ default: 'spaceItemsNone' }}>
@@ -274,7 +274,7 @@ function Kpi({
           </FlexItem>
           {hint && (
             <FlexItem>
-              <span style={{ fontSize: 11, color: 'var(--pf-v5-global--Color--300)' }}>{hint}</span>
+              <span style={{ fontSize: 11, color: 'var(--pf-t--global--text--color--subtle)' }}>{hint}</span>
             </FlexItem>
           )}
         </Flex>
