@@ -1,0 +1,54 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: skylink-public-gateway
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+    skylink.example.com/tier: public
+spec:
+  gatewayClassName: openshift-default
+  listeners:
+    - name: https-public
+      hostname: flights.skylink.example.com
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: skylink-public-tls
+            kind: Secret
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: http-public
+      hostname: flights.skylink.example.com
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: Same
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: skylink-partner-gateway
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+    skylink.example.com/tier: partner
+spec:
+  gatewayClassName: openshift-default
+  listeners:
+    - name: https-partner
+      hostname: partners.skylink.example.com
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: skylink-partner-tls
+            kind: Secret
+      allowedRoutes:
+        namespaces:
+          from: Same

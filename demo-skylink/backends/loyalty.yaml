@@ -1,0 +1,94 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: loyalty-responses
+  namespace: skylink-demo
+data:
+  members.json: |
+    {
+      "members": [
+        {"memberId": "SLM-100001", "name": "J. Smith", "tier": "Platinum", "milesBalance": 248500, "milesYTD": 67200, "tierExpiresAt": "2027-03-31"},
+        {"memberId": "SLM-100002", "name": "M. Chen", "tier": "Gold", "milesBalance": 89300, "milesYTD": 32100, "tierExpiresAt": "2027-01-15"},
+        {"memberId": "SLM-100003", "name": "A. Garcia", "tier": "Silver", "milesBalance": 15700, "milesYTD": 8400, "tierExpiresAt": "2026-12-31"}
+      ]
+    }
+  redeem.json: |
+    {
+      "redemptionOptions": [
+        {"type": "upgrade", "description": "Economy to Business upgrade (JFK-LHR)", "milesCost": 45000, "available": true},
+        {"type": "lounge", "description": "SkyLink Lounge single-visit pass", "milesCost": 5000, "available": true},
+        {"type": "award", "description": "Round-trip award ticket (domestic)", "milesCost": 25000, "available": false, "reason": "Blackout dates"}
+      ]
+    }
+  locations.conf: |
+    location /members { default_type application/json; alias /data/members.json; }
+    location /redeem { default_type application/json; alias /data/redeem.json; }
+    location /healthz { return 200 '{"status":"ok"}'; add_header Content-Type application/json; }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loyalty-svc
+  namespace: skylink-demo
+  labels:
+    app: loyalty
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loyalty
+  template:
+    metadata:
+      labels:
+        app: loyalty
+        app.kubernetes.io/part-of: skylink-demo
+    spec:
+      containers:
+        - name: nginx
+          image: registry.access.redhat.com/ubi9/nginx-124:latest
+          command: ["nginx", "-g", "daemon off;"]
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: config
+              mountPath: /opt/app-root/etc/nginx.default.d/locations.conf
+              subPath: locations.conf
+            - name: config
+              mountPath: /data/members.json
+              subPath: members.json
+            - name: config
+              mountPath: /data/redeem.json
+              subPath: redeem.json
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+      volumes:
+        - name: config
+          configMap:
+            name: loyalty-responses
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loyalty-svc
+  namespace: skylink-demo
+  labels:
+    app: loyalty
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  selector:
+    app: loyalty
+  ports:
+    - port: 8080
+      targetPort: 8080

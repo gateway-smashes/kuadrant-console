@@ -1,0 +1,94 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: booking-responses
+  namespace: skylink-demo
+data:
+  reservations.json: |
+    {
+      "reservations": [
+        {"confirmationCode": "SKYABC1", "flightId": "SL-1042", "passenger": "J. Smith", "class": "business", "status": "Confirmed", "seatAssignment": "2A"},
+        {"confirmationCode": "SKYDEF2", "flightId": "SL-2087", "passenger": "M. Chen", "class": "economy", "status": "Confirmed", "seatAssignment": "34F"},
+        {"confirmationCode": "SKYGHI3", "flightId": "SL-3015", "passenger": "A. Garcia", "class": "economy", "status": "Pending Change", "seatAssignment": "18C"}
+      ],
+      "total": 3
+    }
+  tickets.json: |
+    {
+      "tickets": [
+        {"ticketNumber": "098-1234567890", "confirmationCode": "SKYABC1", "issuedAt": "2026-08-20T09:00:00Z", "fareClass": "J", "baggageAllowance": {"pieces": 2, "maxWeightKg": 32}},
+        {"ticketNumber": "098-2345678901", "confirmationCode": "SKYDEF2", "issuedAt": "2026-08-22T14:30:00Z", "fareClass": "Y", "baggageAllowance": {"pieces": 1, "maxWeightKg": 23}}
+      ]
+    }
+  locations.conf: |
+    location /reservations { default_type application/json; alias /data/reservations.json; }
+    location /tickets { default_type application/json; alias /data/tickets.json; }
+    location /healthz { return 200 '{"status":"ok"}'; add_header Content-Type application/json; }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booking-svc
+  namespace: skylink-demo
+  labels:
+    app: booking
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booking
+  template:
+    metadata:
+      labels:
+        app: booking
+        app.kubernetes.io/part-of: skylink-demo
+    spec:
+      containers:
+        - name: nginx
+          image: registry.access.redhat.com/ubi9/nginx-124:latest
+          command: ["nginx", "-g", "daemon off;"]
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: config
+              mountPath: /opt/app-root/etc/nginx.default.d/locations.conf
+              subPath: locations.conf
+            - name: config
+              mountPath: /data/reservations.json
+              subPath: reservations.json
+            - name: config
+              mountPath: /data/tickets.json
+              subPath: tickets.json
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+      volumes:
+        - name: config
+          configMap:
+            name: booking-responses
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: booking-svc
+  namespace: skylink-demo
+  labels:
+    app: booking
+    app.kubernetes.io/part-of: skylink-demo
+spec:
+  selector:
+    app: booking
+  ports:
+    - port: 8080
+      targetPort: 8080

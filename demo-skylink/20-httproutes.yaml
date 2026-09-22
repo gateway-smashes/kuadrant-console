@@ -1,0 +1,144 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: flight-search-route
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+    skylink.example.com/api: flight-search
+spec:
+  parentRefs:
+    - name: skylink-public-gateway
+      namespace: skylink-demo
+  hostnames:
+    - flights.skylink.example.com
+  rules:
+    - matches:
+        - method: GET
+          path:
+            type: PathPrefix
+            value: /flights
+      backendRefs:
+        - name: flight-search-svc
+          port: 8080
+          weight: 1
+    - matches:
+        - method: GET
+          path:
+            type: PathPrefix
+            value: /schedules
+      backendRefs:
+        - name: flight-search-svc
+          port: 8080
+          weight: 1
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: flight-tracker-route
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+    skylink.example.com/api: flight-tracker
+spec:
+  parentRefs:
+    - name: skylink-public-gateway
+      namespace: skylink-demo
+  hostnames:
+    - flights.skylink.example.com
+  rules:
+    - matches:
+        - method: GET
+          path:
+            type: PathPrefix
+            value: /positions
+      backendRefs:
+        - name: flight-tracker-svc
+          port: 8080
+          weight: 1
+    - matches:
+        - method: GET
+          path:
+            type: PathPrefix
+            value: /status
+      backendRefs:
+        - name: flight-tracker-svc
+          port: 8080
+          weight: 1
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: booking-route
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+    skylink.example.com/api: booking
+spec:
+  parentRefs:
+    - name: skylink-partner-gateway
+      namespace: skylink-demo
+  hostnames:
+    - partners.skylink.example.com
+  rules:
+    - matches:
+        - method: GET
+          path:
+            type: PathPrefix
+            value: /reservations
+      backendRefs:
+        - name: booking-svc
+          port: 8080
+          weight: 1
+    - matches:
+        - method: POST
+          path:
+            type: PathPrefix
+            value: /reservations
+      backendRefs:
+        - name: booking-svc
+          port: 8080
+          weight: 1
+    - matches:
+        - method: GET
+          path:
+            type: PathPrefix
+            value: /tickets
+      backendRefs:
+        - name: booking-svc
+          port: 8080
+          weight: 1
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: loyalty-route
+  namespace: skylink-demo
+  labels:
+    app.kubernetes.io/part-of: skylink-demo
+    skylink.example.com/api: loyalty
+spec:
+  parentRefs:
+    - name: skylink-partner-gateway
+      namespace: skylink-demo
+  hostnames:
+    - partners.skylink.example.com
+  rules:
+    - matches:
+        - method: GET
+          path:
+            type: PathPrefix
+            value: /members
+      backendRefs:
+        - name: loyalty-svc
+          port: 8080
+          weight: 1
+    - matches:
+        - method: POST
+          path:
+            type: PathPrefix
+            value: /redeem
+      backendRefs:
+        - name: loyalty-svc
+          port: 8080
+          weight: 1

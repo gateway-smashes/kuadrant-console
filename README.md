@@ -116,6 +116,33 @@ data:
 
 Full field reference, API-key Secrets and feature flags → **[docs/configuration.md](docs/configuration.md)**.
 
+## Demo: SkyLink Aviation Platform
+
+A batteries-included demo that deploys a realistic **flight-data platform**
+across two gateways with live traffic, so every console view has real data.
+
+| API | Gateway | What it does |
+|---|---|---|
+| Flight Search | `skylink-public-gateway` | Routes, schedules, availability |
+| Flight Tracker | `skylink-public-gateway` | Real-time positions and ETAs |
+| Booking | `skylink-partner-gateway` | Reservations and e-tickets |
+| SkyMiles Loyalty | `skylink-partner-gateway` | Frequent flyer tiers and redemption |
+
+Includes 4 API Products with Free/Pro/Enterprise plans, 7 API Keys in
+mixed approval states, full policy coverage (Auth, RateLimit, TLS, DNS),
+and a traffic generator pushing ~15–20 req/s so Prometheus panels light up.
+
+```bash
+# Deploy everything
+./demo-skylink/setup.sh
+
+# Tear it all down
+./demo-skylink/teardown.sh
+```
+
+Full details in **[demo-skylink/README.md](demo-skylink/README.md)**.
+A simpler single-API demo (Petstore) is also available in **[demo/](demo/)**.
+
 ## Documentation
 
 | Doc | What's in it |
