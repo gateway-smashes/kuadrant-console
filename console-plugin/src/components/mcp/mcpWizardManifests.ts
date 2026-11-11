@@ -5,9 +5,9 @@
  * final k8sCreate loop). Every generator returns `null` when the step says the
  * resource should not be created, so callers `filter(Boolean)`.
  *
- * MCP resources are `mcp.kuadrant.io/v1alpha1` — the version served by the
- * released MCP Gateway chart (0.7.x, verified on-cluster). `v1` exists on the
- * project's main branch but is not in a release yet; bump when it ships.
+ * MCP resources are `mcp.kuadrant.io/v1` — GA in RHCL 1.5, which serves v1 and
+ * no longer serves v1alpha1 (verified on-cluster). The older standalone
+ * mcp-gateway 0.7.x chart served v1alpha1 only.
  */
 
 export interface McpGatewayWizardState {
@@ -116,10 +116,10 @@ export function genMcpGatewayExtension(s: McpGatewayWizardState): GeneratedMcpRe
     name: s.gatewayName,
     namespace: s.gatewayNamespace,
     apiGroup: 'mcp.kuadrant.io',
-    apiVersion: 'v1alpha1',
+    apiVersion: 'v1',
     plural: 'mcpgatewayextensions',
     manifest: {
-      apiVersion: 'mcp.kuadrant.io/v1alpha1',
+      apiVersion: 'mcp.kuadrant.io/v1',
       kind: 'MCPGatewayExtension',
       metadata: { name: s.gatewayName, namespace: s.gatewayNamespace },
       spec: {
@@ -148,10 +148,10 @@ export function genMcpServerRegistration(s: McpGatewayWizardState): GeneratedMcp
     name: s.serverName,
     namespace: s.serverNamespace,
     apiGroup: 'mcp.kuadrant.io',
-    apiVersion: 'v1alpha1',
+    apiVersion: 'v1',
     plural: 'mcpserverregistrations',
     manifest: {
-      apiVersion: 'mcp.kuadrant.io/v1alpha1',
+      apiVersion: 'mcp.kuadrant.io/v1',
       kind: 'MCPServerRegistration',
       metadata: {
         name: s.serverName,

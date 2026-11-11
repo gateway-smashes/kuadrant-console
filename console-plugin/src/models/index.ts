@@ -229,26 +229,26 @@ export const GRPCRouteGVK: K8sGroupVersionKind = {
   kind: 'GRPCRoute',
 };
 
-// mcp.kuadrant.io — official Kuadrant MCP Gateway (Technology Preview).
-// The RELEASED chart (0.7.x) serves **v1alpha1** only; `v1` exists on the
-// project's main branch (with a v1alpha1→v1 migration guide) but is not yet in
-// a release, so the deployed/served version — the one this plugin must watch —
-// is v1alpha1. Bump to v1 when a release ships it.
+// mcp.kuadrant.io — the MCP Gateway, GA in RHCL 1.5. RHCL 1.5 bundles the MCP
+// CRDs in the main RHCL operator and serves **v1** (storage+served); v1alpha1
+// is no longer served (verified on-cluster: served=false on all three MCP
+// CRDs), so this plugin MUST watch v1 — watching v1alpha1 returns nothing on
+// 1.5. (The older standalone mcp-gateway 0.7.x chart served v1alpha1 only.)
 // MCPServerRegistration registers a backend MCP server (targetRef → HTTPRoute)
 // under a tool prefix; MCPGatewayExtension attaches the broker to a Gateway
 // listener; MCPVirtualServer curates a subset of the federated tools.
 export const MCPServerRegistrationGVK: K8sGroupVersionKind = {
   group: 'mcp.kuadrant.io',
-  version: 'v1alpha1',
+  version: 'v1',
   kind: 'MCPServerRegistration',
 };
 export const MCPGatewayExtensionGVK: K8sGroupVersionKind = {
   group: 'mcp.kuadrant.io',
-  version: 'v1alpha1',
+  version: 'v1',
   kind: 'MCPGatewayExtension',
 };
 export const MCPVirtualServerGVK: K8sGroupVersionKind = {
   group: 'mcp.kuadrant.io',
-  version: 'v1alpha1',
+  version: 'v1',
   kind: 'MCPVirtualServer',
 };
