@@ -13,14 +13,14 @@
 #
 # Overrides:
 #   IMAGE=<repo>       — override the target image; defaults to
-#                        quay.io/hodrigohamalho/kuadrant-console:dns-prober
+#                        quay.io/gateway-smashes/kuadrant-console:dns-prober
 #   SKIP_BUILD=1       — reuse whatever the image tag currently points at
 #   SKIP_CONFIGMAP=1   — apply/patch nothing on the ConfigMap (useful
 #                        when the operator manages that CM by hand)
 
 set -euo pipefail
 
-IMAGE="${IMAGE:-quay.io/hodrigohamalho/kuadrant-console:dns-prober}"
+IMAGE="${IMAGE:-quay.io/gateway-smashes/kuadrant-console:dns-prober}"
 NAMESPACE="${NAMESPACE:-kuadrant-console}"
 CONFIGMAP="${CONFIGMAP:-kuadrant-console-config}"
 CONFIGMAP_NAMESPACE="${CONFIGMAP_NAMESPACE:-kuadrant-console}"

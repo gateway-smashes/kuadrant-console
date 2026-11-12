@@ -30,7 +30,7 @@ spec:
       serviceAccountName: dns-prober
       containers:
         - name: dns-prober
-          image: quay.io/hodrigohamalho/kuadrant-console:dns-prober-1.0
+          image: quay.io/gateway-smashes/kuadrant-console:dns-prober-1.0
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
