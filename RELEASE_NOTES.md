@@ -14,7 +14,7 @@ Image: `quay.io/gateway-smashes/kuadrant-console:1.5.1` (`linux/amd64`)
 
 ## v1.5.0 — 2026-07-31
 
-Image: `quay.io/hodrigohamalho/kuadrant-console:1.5.0`
+Image: `quay.io/gateway-smashes/kuadrant-console:1.5.0`
 
 The AI-gateway story, made interactive.
 
@@ -40,7 +40,7 @@ The AI-gateway story, made interactive.
 
 ## v1.4.0 — 2026-07-29
 
-Image: `quay.io/hodrigohamalho/kuadrant-console:1.4.0`
+Image: `quay.io/gateway-smashes/kuadrant-console:1.4.0`
 
 MCP Gateway support plus a shift from resource viewers to **operational
 dashboards**. "Real-only, honest gaps": every value is derived from live
@@ -82,7 +82,7 @@ render as greyed **N/A** and never affect a score.
 
 ## v1.3.0 — 2026-07-10
 
-Image: `quay.io/jsimas/kuadrant-console:1.3.0`
+Image: `quay.io/gateway-smashes/kuadrant-console:1.3.0`
 
 Everything below landed since the 1.2 image (package tree 0.1.0),
 including the merge of the

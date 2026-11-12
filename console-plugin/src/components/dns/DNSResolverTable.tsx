@@ -141,7 +141,7 @@ const DNSResolverTable: React.FC<Props> = ({ prober, hostname, isMultiSite }) =>
                   component="a"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://github.com/hodrigohamalho/kuadrant-console/tree/main/dns-prober"
+                  href="https://github.com/gateway-smashes/kuadrant-console/tree/main/dns-prober"
                   icon={<ExternalLinkAltIcon />}
                   iconPosition="end"
                 >

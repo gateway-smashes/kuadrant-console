@@ -5,7 +5,7 @@
 #
 #   1. Build the container image locally (podman).
 #   2. Push it to a registry the cluster can pull from (default: the
-#      hodrigohamalho quay account the plugin already uses).
+#      gateway-smashes quay account the plugin already uses).
 #   3. Apply the Deployment / Service / Route manifests.
 #   4. Patch the plugin ConfigMap with `dnsProberUrl` so the DNS
 #      Troubleshooting page swaps its EmptyState for real data.
